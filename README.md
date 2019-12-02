@@ -1,4 +1,4 @@
-# carshop
+# app
 
 ## Project setup
 ```
