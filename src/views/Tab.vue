@@ -26,7 +26,7 @@ export default {
     },
     methods:{
         allclolor(){
-            this.$router.push('/allclolor')
+            this.$router.push('/carColor')
         },
         car(){
             this.$router.push('/car')

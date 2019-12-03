@@ -165,59 +165,57 @@ console.log('无滚动条')
     overflow-y: scroll
   }
 .col {
-  width: 375px;
-  color: #000;
+  width: 23.37rem;
+  height: 1.3125rem;
+  color: #b5b5b5;
   background: #f4f4f4;
-  margin-left: -10px;
   border-bottom: none;
-}
-.setaxios {
-  width: 100%;
-  margin: 20px auto;
-  text-align: right;
-}
-.setaxios input[type="button"] {
-  text-align: center;
+   font-size:0.9375rem;
+   padding-left: 1rem;
 }
 .floor-nav {
   position: fixed;
-  top: 15%;
-  right: 0;
+  top: 8.875rem;
+  right: 0.5rem;
 }
 .floor-nav .nav-list {
-  width: 50px;
   display: inline-block;
   text-align: center;
-  /* background-color: #f8f8f8; */
 }
 .floor-nav .nav-list .nav-list-item {
-  display: inline-block;
-  width: 100%;
-  border-bottom: 1px solid #fff;
   cursor: pointer;
-  /* font-size: 25px; */
+ font-size: 0.75rem;
 }
 .floor-nav .nav-list .nav-list-item.active,
 .floor-nav .nav-list .nav-list-item:hover {
   background-color: #404040;
 }
-.floor-item-box > ul {
+.floor-item-box{
   width: 100%;
+}
+.floor-item-box > ul {
+  width: 92%;
+  height: 3.1875rem;
   display: flex;
+  align-items: center;
+  margin: 0 auto;
+  border-bottom: 1px #ccc solid;
+
 }
 .floor-item-box > ul > img {
-  width: 40px;
-  height: 40px;
+  width: 2.5625rem;
+  height: 2.5625rem;
 }
 .floor-item-box > ul > li {
   color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-left: 1.25rem;
+  font-size: 1.03125rem;
 }
 .floor-item {
-  width: 95%;
-  border-bottom: 1px #ccc solid;
+  width: 100%;
   margin: 0 auto;
   color: #fff;
   display: flex;
