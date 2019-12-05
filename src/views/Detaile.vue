@@ -36,6 +36,7 @@
                  </ul>
             </div>
         </div>
+        <div class="bottoms"></div>
         <div class="bottom" @click="fromInquiry">
             <p>询问底价</p>
             <p>本地经销商问你报价</p>
@@ -172,10 +173,19 @@ top: -2.6875rem;
     font-size: 1rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+ }
+ .bottom>p{
+     flex: 1;
+     display: flex;
+     justify-content: center;
+     align-items: center;
  }
  .bottom>p:nth-child(2){
      font-size: 0.75rem;
+ }
+ .bottoms{
+     width: 100%;
+     height: 3.125rem;
  }
  .c-type{
     width: 100%;

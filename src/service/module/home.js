@@ -5,7 +5,10 @@ export let homeActionsList=()=>{
     return request("v2-car-getMasterBrandList.html")
 }
 export let alertActionsList=(MasterID)=>{
-    console.log(MasterID);
-    
+    // 弹框列表数据
     return request("/v2-car-getMakeListByMasterBrandId.html",{params:{MasterID}})
+}
+// 详情页数据
+export let detaileActionsList=(SerialID)=>{
+    return request("v2-car-getInfoAndListById.html",{params:{SerialID}})
 }
