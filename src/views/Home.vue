@@ -1,8 +1,5 @@
 <template>
-<!-- {{homeStateList}} -->
   <div class="floor">
-
-
     <!-- 父传子将flag变量和ID传到弹框组件中 -->
     <Alert :value1="value1" :arList="arList" />
     <!-- {{floorNavList}} -->
@@ -45,16 +42,17 @@
  */
 import axios from "axios";
 import Alert from "../components/Alert";
-import {mapState,mapMutations,mapGetters,mapActions} from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+import { log } from "util";
 export default {
   name: "home",
   data() {
     return {
-      floorNav: [],
-      floorList: [],
+      //floorNav: [],
+      //floorList: [],
       floorIndex: 1,
-      value1: false,
-      arList: []
+      value1: false
+      //arList: []
     };
   },
   /**
@@ -64,67 +62,49 @@ export default {
   components: {
     Alert
   },
-     computed: {
-   ...mapState(['homeStateList']),
+  computed: {
+    ...mapState({
+      homeStateList: state => state.home.homeStateList,
+      floorList: state => state.home.floorList,
+      floorNav: state => state.home.floorNav,
+      arList: state => state.home.arList
+    })
   },
   /**
    * 在初始的时候请求数据
    * @params axios 请求数据
    */
   created() {
-   this.homeActionsList()
-    axios
-      .get("https://baojia.chelun.com/v2-car-getMasterBrandList.html")
-      .then(response => {
-        let list = response.data.data;
-        // 将请求的数据赋给左侧列表
-        this.floorList = list;
-        let res = [];
-        list.forEach((item, index) => {
-          let text = item.Spelling.slice(0, 1);
-          res.push(text, item);
-          this.floorList = Array.from(new Set(res));
-          // console.log(this.floorList);
-        });
-        // 定义一个数组，循环这个数据，将它的Spelling的第一位取出来，存入数组，newSet去重
-        let arr = [];
-        list.forEach((item, index) => {
-          let text = item.Spelling;
-          arr.push(text.slice(0, 1));
-          this.floorNav = Array.from(new Set(arr));
-        });
-      })
-      .catch(error => {
-        // handle error
-        console.log(error);
-      })
-      .then(() => {
-        // always executed
-      });
+    this.homeActionsList();
   },
   methods: {
-    ...mapActions(['homeActionsList']),
+    ...mapActions({
+      homeActionsList: "home/homeActionsList",
+      alertActionsList: "home/alertActionsList"
+    }),
     /**
      * 点击弹出
      * @params flag 控制flag变量
      */
     alertLeft(index) {
+      this.alertActionsList(this.floorList[index].MasterID);
+      console.log(this.floorList[index].MasterID)
       this.value1 = true;
-      axios.get(
-          `https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html?MasterID=${this.floorList[index].MasterID}`
-        )
-        .then(response => {
-          this.arList = response.data.data;
-          console.log(this.arList);
-          // console.log(JSON.parse(JSON.stringify(this.arList)));
-        })
-        .catch(error => {
-          // handle error
-          console.log(error);
-        })
-        .then(() => {
-          // always executed
-        });
+      // axios
+      //  .get(
+      //   `https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html?MasterID=${this.floorList[index].MasterID}`
+      // )
+      //.then(response => {
+      //  this.arList = response.data.data;
+      // console.log(JSON.parse(JSON.stringify(this.arList)));
+      //})
+      // .catch(error => {
+      // handle error
+      //  console.log(error);
+      // })
+      //.then(() => {
+      // always executed
+      //});
     },
     /**
      * 设置楼层导航事件驱动方法
@@ -142,32 +122,32 @@ export default {
         floor_top,
         "-----------------------获取到每一个点击对应的节点的offsetTop"
       );
-      document.querySelector('.floor').scrollTop=floor_top
+      document.querySelector(".floor").scrollTop = floor_top;
       //监听
-       window.onscroll = () =>{
-      let top = document.querySelector('.floor').scrollTop;
-          top = floor_top 
-      }
+      window.onscroll = () => {
+        let top = document.querySelector(".floor").scrollTop;
+        top = floor_top;
+      };
     }
-}
-}
+  }
+};
 </script>
 <style scoped>
-  .floor{
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll
-  }
+.floor {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
 .col {
   width: 23.37rem;
   height: 1.3125rem;
   color: #b5b5b5;
   background: #f4f4f4;
   border-bottom: none;
-   font-size:0.9375rem;
-   padding-left: 1rem;
-   display: flex;
-   align-items: center;
+  font-size: 0.9375rem;
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
 }
 .floor-nav {
   position: fixed;
@@ -180,15 +160,14 @@ export default {
 }
 .floor-nav .nav-list .nav-list-item {
   cursor: pointer;
- font-size: 0.75rem;
+  font-size: 0.75rem;
   margin-bottom: 0.4rem;
-
 }
 .floor-nav .nav-list .nav-list-item.active,
 .floor-nav .nav-list .nav-list-item:hover {
   background-color: #404040;
 }
-.floor-item-box{
+.floor-item-box {
   width: 100%;
 }
 .floor-item-box > ul {
@@ -198,7 +177,6 @@ export default {
   align-items: center;
   margin: 0 auto;
   border-bottom: 0.0625rem #ccc solid;
-
 }
 .floor-item-box > ul > img {
   width: 2.5625rem;
