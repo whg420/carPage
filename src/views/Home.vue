@@ -27,7 +27,7 @@
       <div class="floor-item-box">
         <li class="col" v-if="item instanceof Object==false">{{item}}</li>
         <ul v-if="item instanceof Object">
-          <img :src="item.CoverPhoto" v-if="item.CoverPhoto" />
+          <img :src="item.CoverPhoto"  v-if="item.CoverPhoto" />
           <li v-if="item.Name">{{item.Name}}</li>
         </ul>
       </div>
@@ -133,21 +133,34 @@ export default {
 };
 </script>
 <style scoped>
+<<<<<<< HEAD
 .floor {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
 }
+=======
+ .floor{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll
+  }
+>>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
 .col {
   width: 23.37rem;
   height: 1.3125rem;
   color: #b5b5b5;
   background: #f4f4f4;
   border-bottom: none;
+<<<<<<< HEAD
   font-size: 0.9375rem;
   padding-left: 1rem;
   display: flex;
   align-items: center;
+=======
+   font-size:0.9375rem;
+   padding-left: 1rem;
+>>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
 }
 .floor-nav {
   position: fixed;
@@ -160,14 +173,22 @@ export default {
 }
 .floor-nav .nav-list .nav-list-item {
   cursor: pointer;
+<<<<<<< HEAD
   font-size: 0.75rem;
   margin-bottom: 0.4rem;
+=======
+ font-size: 0.75rem;
+>>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
 }
 .floor-nav .nav-list .nav-list-item.active,
 .floor-nav .nav-list .nav-list-item:hover {
   background-color: #404040;
 }
+<<<<<<< HEAD
 .floor-item-box {
+=======
+.floor-item-box{
+>>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
   width: 100%;
 }
 .floor-item-box > ul {
@@ -176,7 +197,12 @@ export default {
   display: flex;
   align-items: center;
   margin: 0 auto;
+<<<<<<< HEAD
   border-bottom: 0.0625rem #ccc solid;
+=======
+  border-bottom: 1px #ccc solid;
+
+>>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
 }
 .floor-item-box > ul > img {
   width: 2.5625rem;
