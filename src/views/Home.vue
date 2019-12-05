@@ -1,6 +1,8 @@
-
 <template>
+<!-- {{homeStateList}} -->
   <div class="floor">
+
+
     <!-- 父传子将flag变量和ID传到弹框组件中 -->
     <Alert :value1="value1" :arList="arList" />
     <!-- {{floorNavList}} -->
@@ -13,7 +15,7 @@
           class="nav-list-item"
           v-for="(item, index) in floorNav"
           :key="index"
-          @click="setFloorNavMountClick(index)"
+          @touchstart="setFloorNavMountClick(index)"
         >{{item}}</li>
       </ul>
     </section>
@@ -38,16 +40,12 @@
  
 <script>
 /**
- * axios
- * @params 引入axios
+ * Alert axios
+ * @params 引入Alert  className 引入引入Alert,axios
  */
 import axios from "axios";
-/**
- * Alert
- * @params 引入Alert className
- */
 import Alert from "../components/Alert";
-var TIMER = null;
+import {mapState,mapMutations,mapGetters,mapActions} from 'vuex'
 export default {
   name: "home",
   data() {
@@ -66,11 +64,15 @@ export default {
   components: {
     Alert
   },
+     computed: {
+   ...mapState(['homeStateList']),
+  },
   /**
    * 在初始的时候请求数据
    * @params axios 请求数据
    */
   created() {
+   this.homeActionsList()
     axios
       .get("https://baojia.chelun.com/v2-car-getMasterBrandList.html")
       .then(response => {
@@ -101,20 +103,19 @@ export default {
       });
   },
   methods: {
+    ...mapActions(['homeActionsList']),
     /**
      * 点击弹出
      * @params flag 控制flag变量
      */
     alertLeft(index) {
       this.value1 = true;
-      axios
-        .get(
+      axios.get(
           `https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html?MasterID=${this.floorList[index].MasterID}`
         )
         .then(response => {
           this.arList = response.data.data;
           console.log(this.arList);
-
           // console.log(JSON.parse(JSON.stringify(this.arList)));
         })
         .catch(error => {
@@ -142,18 +143,11 @@ export default {
         "-----------------------获取到每一个点击对应的节点的offsetTop"
       );
       document.querySelector('.floor').scrollTop=floor_top
+      //监听
        window.onscroll = () =>{
       let top = document.querySelector('.floor').scrollTop;
           top = floor_top 
       }
-      //检测是否有滚动条
-if(document.body.style.overflow!="hidden"&&document.body.scroll!="no"&&document.body.scrollHeight>document.body.offsetHeight)
-{
-console.log('有滚动条')
-}else
-{
-console.log('无滚动条')
-}
     }
 }
 }
@@ -172,6 +166,8 @@ console.log('无滚动条')
   border-bottom: none;
    font-size:0.9375rem;
    padding-left: 1rem;
+   display: flex;
+   align-items: center;
 }
 .floor-nav {
   position: fixed;
@@ -185,6 +181,8 @@ console.log('无滚动条')
 .floor-nav .nav-list .nav-list-item {
   cursor: pointer;
  font-size: 0.75rem;
+  margin-bottom: 0.4rem;
+
 }
 .floor-nav .nav-list .nav-list-item.active,
 .floor-nav .nav-list .nav-list-item:hover {
@@ -199,7 +197,7 @@ console.log('无滚动条')
   display: flex;
   align-items: center;
   margin: 0 auto;
-  border-bottom: 1px #ccc solid;
+  border-bottom: 0.0625rem #ccc solid;
 
 }
 .floor-item-box > ul > img {

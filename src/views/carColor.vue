@@ -44,13 +44,15 @@ export default {
     ).then(res => {
       //    this.list=res.data.data;
       console.log(JSON.parse(JSON.stringify(res.data.data)), "----------color");
+      // 请求到的数据{'2019':2019对应的数据数组,'2020':2020对应的数据数组.........}
       let data = JSON.parse(JSON.stringify(res.data.data));
       let values = Object.values(data);
-      console.log(values, "------------------values---------------");
-      this.list = values;
+           this.list = values;
       let keys = Object.keys(data);
-      console.log(keys, "------------------keys---------------");
-      this.navlist = keys;
+           this.navlist = keys;
+      // 对象转数组后
+      // ['2019','2020'.....]
+      // ['2019对应的数据数组','2020对应的数据数组'.....]
     });
   },
   mounted() {}

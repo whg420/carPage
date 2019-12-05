@@ -1,12 +1,10 @@
 <template>
     
     <div class="box">
-     
         <div class="navimg">
-             <img :src="list.CoverPhoto" alt="" @click="fromTab"/>
+             <img :src="list.CoverPhoto" alt="" @click="fromDesign"/>
         </div>
         <div class="info">
-
                 <div class="info1">
                 <p v-if="list.market_attribute">{{list.market_attribute.dealer_price}}</p>
                 <p v-if="list.market_attribute">指导价{{list.market_attribute.official_refer_price}}</p>
@@ -17,7 +15,11 @@
         </div>
         <div class="carlist">
             <div class="c-type">
-                <span :class="count==index?'active':''" v-for="(item,index) in yearArr"  :key="index" @click="alllist(index)">{{item}}</span>
+                <span 
+                :class="count==index?'active':''" 
+                v-for="(item,index) in yearArr"  
+                :key="index" 
+                @click="yearType(index,$event)">{{item}}</span>
             </div>
             <div class="conlist" v-for="(item,index) in datalist" :key="index">
                  <p class="one">{{item.exhaust_str}}/{{item.max_power_str}}{{item.inhale_type}}</p>
@@ -54,7 +56,6 @@ export default {
     data(){
         return {
             list:[],
-            // nav:['全部','2020','2019'],
             datalist:[],
             count:0,
             yearArr:[]
@@ -67,29 +68,31 @@ export default {
         fromInquiry(){
                this.$router.push({path:"/inquiry"})        
         },
-        fromTab(){
-               this.$router.push({path:"/tab"})        
+        fromDesign(){
+               this.$router.push({path:"/designColor"})        
         },
-      alllist(id){
-          console.log(id,'--------------------id');
-          
-        this.count=id
-         if(id==0){
-              this.datalist=this.list.list
-         }else if(id==1){
-              let result= this.list.list.filter(item=>item.market_attribute.year==2020)
+      yearType(index,e){
+        this.count=index
+       // e.target 是你当前点击的元素
+       // e.currentTarget 是你绑定事件的元素
+    //    console.log(e.target.innerHTML);
+       let val=e.target.innerHTML;
+     if(val=='全部'){
+        //  console.log(this.list.list,'-------------------全部');
+           this.datalist=this.list.list
+     }else{
+          let result= this.list.list.filter(item=>{
+               return item.market_attribute.year==val
+           })
+        //    console.log(result,'-----------------result');
            this.datalist=result
-         }else if(id==2){
-              let result= this.list.list.filter(item=>item.market_attribute.year==2019)
-          this.datalist=result
-         }
-         
+     }
+           
       },
     },
     created(){
         console.log(this.$route.query.ID);
         axios.get(`https://baojia.chelun.com/v2-car-getInfoAndListById.html?SerialID=${this.$route.query.ID}`).then((res)=>{
-            
             let arr=[];
             res.data.data.list.forEach((item,index) => {
                 arr.push(item.market_attribute.year);
@@ -182,8 +185,9 @@ top: -2.6875rem;
     align-items: center;
     padding-left: 1rem;
     span{
+    display: block;
     font-size: 1.05rem;
-    margin-right: 1.5rem;
+    margin-right: 1.2rem;
     }
  }
  .one{
@@ -236,6 +240,6 @@ top: -2.6875rem;
 
   }
   .active{
-        color: #73acff
+        color: #73acff;
     }
 </style>
