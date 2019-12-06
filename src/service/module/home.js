@@ -5,7 +5,5 @@ export let homeActionsList=()=>{
     return request("v2-car-getMasterBrandList.html")
 }
 export let alertActionsList=(MasterID)=>{
-    console.log(MasterID);
-    
     return request("/v2-car-getMakeListByMasterBrandId.html",{params:{MasterID}})
 }

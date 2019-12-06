@@ -1,25 +1,20 @@
 <template>
-    
     <div class="box">
         <div class="navimg">
-             <img :src="list.CoverPhoto" alt="" @click="fromDesign"/>
+             <img :src="carList.CoverPhoto" alt="" @click="tab">
         </div>
         <div class="info">
                 <div class="info1">
-                <p v-if="list.market_attribute">{{list.market_attribute.dealer_price}}</p>
-                <p v-if="list.market_attribute">指导价{{list.market_attribute.official_refer_price}}</p>
+                <p v-if="carList.market_attribute">{{carList.market_attribute.dealer_price}}</p>
+                <p v-if="carList.market_attribute">指导价{{carList.market_attribute.official_refer_price}}</p>
                 </div>
                 <div class="action">
-                   <button @click="fromInquiry">询问底价</button>
+                   <button >询问底价</button>
                 </div>
         </div>
         <div class="carlist">
             <div class="c-type">
-                <span 
-                :class="count==index?'active':''" 
-                v-for="(item,index) in yearArr"  
-                :key="index" 
-                @click="yearType(index,$event)">{{item}}</span>
+                <span :class="count==index?'active':''" v-for="(item,index) in nav"  :key="index" @click="alllist(item,index)">{{item}}</span>
             </div>
             <div class="conlist" v-for="(item,index) in datalist" :key="index">
                  <p class="one">{{item.exhaust_str}}/{{item.max_power_str}}{{item.inhale_type}}</p>
@@ -31,81 +26,55 @@
                              <span>指导价{{item.market_attribute.dealer_price_max}}</span>
                               <span>{{item.market_attribute.dealer_price_min}}起</span>
                          </p>
-                         <button class="askqustion" @click="fromInquiry">询问底价</button>
+                         <button class="askqustion">询问底价</button>
                      </li>
                  </ul>
             </div>
         </div>
-        <div class="bottom" @click="fromInquiry">
+         <div class="clone"></div>
+        <div class="bottom">
             <p>询问底价</p>
             <p>本地经销商问你报价</p>
         </div>
-       
     </div>
 </template>
 <script>
-import axios from 'axios'
-
-export default {
-    props:{
-
-    },
-    components:{
-
-    },
-    data(){
-        return {
-            list:[],
-            datalist:[],
-            count:0,
-            yearArr:[]
-        }
-    },
-    computed:{
-     
-    },
-    methods:{
-        fromInquiry(){
-               this.$router.push({path:"/inquiry"})        
+    import {mapState,mapActions, mapMutations}  from "vuex"
+    export default {
+        data(){
+            return {
+                 SerialID:this.$route.query.ID,
+                 count:0,
+            }
         },
-        fromDesign(){
-               this.$router.push({path:"/designColor"})        
-        },
-      yearType(index,e){
-        this.count=index
-       // e.target 是你当前点击的元素
-       // e.currentTarget 是你绑定事件的元素
-    //    console.log(e.target.innerHTML);
-       let val=e.target.innerHTML;
-     if(val=='全部'){
-        //  console.log(this.list.list,'-------------------全部');
-           this.datalist=this.list.list
-     }else{
-          let result= this.list.list.filter(item=>{
-               return item.market_attribute.year==val
-           })
-        //    console.log(result,'-----------------result');
-           this.datalist=result
-     }
-           
-      },
-    },
-    created(){
-        console.log(this.$route.query.ID);
-        axios.get(`https://baojia.chelun.com/v2-car-getInfoAndListById.html?SerialID=${this.$route.query.ID}`).then((res)=>{
-            let arr=[];
-            res.data.data.list.forEach((item,index) => {
-                arr.push(item.market_attribute.year);
-                this.yearArr=['全部',...new Set(arr)];
-            });
-            this.list=JSON.parse(JSON.stringify(res.data.data))
-            this.datalist=JSON.parse(JSON.stringify(res.data.data.list))
-        })
-    },
-    mounted(){
-
+       computed: {
+           ...mapState({
+               carList:store=>store.details.carList,
+               nav:store=>store.details.nav,
+               datalist:store=>store.details.datlist
+           }),
+       },  
+       methods:{
+           ...mapActions({
+               getCarList:"details/getCarList"
+           }),
+          ...mapMutations({
+            setCurrent: "details/setCurrent"
+            }),
+            alllist(item) {
+            this.setCurrent(item);
+             this.getCarList(this.SerialID)
+            },
+   
+      tab(){
+           let ID=this.$route.query.ID
+           this.$router.push({path:"/designColor",query:{ID}})   
+      }
+       },
+       created() {
+           this.getCarList(this.SerialID)
+       },
     }
-}
 </script>
 <style lang="scss" scoped>
  .box{
@@ -242,4 +211,8 @@ top: -2.6875rem;
   .active{
         color: #73acff;
     }
+.clone{
+    width: 100%;
+    height:3.125rem;
+}
 </style>
