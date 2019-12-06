@@ -27,7 +27,7 @@
       <div class="floor-item-box">
         <li class="col" v-if="item instanceof Object==false">{{item}}</li>
         <ul v-if="item instanceof Object">
-          <img :src="item.CoverPhoto" v-if="item.CoverPhoto" />
+          <img :src="item.CoverPhoto"  v-if="item.CoverPhoto" />
           <li v-if="item.Name">{{item.Name}}</li>
         </ul>
       </div>

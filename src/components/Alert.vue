@@ -88,4 +88,5 @@ export default {
 .colorRed{
     color: #f00;
 }
+
 </style>
