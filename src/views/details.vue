@@ -31,11 +31,13 @@
                              <span>指导价{{item.market_attribute.dealer_price_max}}</span>
                               <span>{{item.market_attribute.dealer_price_min}}起</span>
                          </p>
+                        
                          <button class="askqustion">询问底价</button>
                      </li>
                  </ul>
             </div>
         </div>
+         <div class="clone"></div>
         <div class="bottom">
             <p>询问底价</p>
             <p>本地经销商问你报价</p>
@@ -44,13 +46,13 @@
     </div>
 </template>
 <script>
-    import {mapState,mapActions}  from "vuex"
+    import {mapState,mapActions, mapMutations}  from "vuex"
     export default {
         data(){
             return {
-                //  SerialID:this.$route.query.SerialID
-                 SerialID:2593,
-                 count:0
+                 SerialID:this.$route.query.ID,
+                 count:0,
+              
                 
             }
         },
@@ -58,24 +60,22 @@
            ...mapState({
                carList:store=>store.details.carList,
                nav:store=>store.details.nav,
-               datalist:store=>store.details.datalist
-           })
+               datalist:store=>store.details.datlist
+           }),
+
        },  
        methods:{
            ...mapActions({
                getCarList:"details/getCarList"
            }),
-           alllist(ite,id){
-               console.log(this.datalist)
-            this.count=id
-          if(id==0){
-               this.datalist=this.carList.list
-          }else{
-            let result= this.carList.list.filter(item=>item.market_attribute.year==ite)
-            this.datalist=result
-          }
-         
-      },
+          ...mapMutations({
+            setCurrent: "details/setCurrent"
+            }),
+            alllist(item) {
+            this.setCurrent(item);
+             this.getCarList(this.SerialID)
+            },
+   
       tab(){
            let ID=this.$route.query.ID
            this.$router.push({path:"/tab",query:{ID}})   
@@ -84,7 +84,7 @@
        },
        created() {
            this.getCarList(this.SerialID)
-           console.log(this.carList)
+           
        },
     }
 </script>
@@ -222,5 +222,8 @@ top: -2.6875rem;
   .active{
         color: #73acff
     }
-
+.clone{
+    width: 100%;
+    height:3.125rem;
+}
 </style>
