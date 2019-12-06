@@ -1,15 +1,14 @@
 <template>
-    
     <div class="box">
      
         <div class="navimg">
-             <img :src="list.CoverPhoto" alt="" @click="tab">
+             <img :src="carList.CoverPhoto" alt="" @click="tab">
         </div>
         <div class="info">
 
                 <div class="info1">
-                <p v-if="list.market_attribute">{{list.market_attribute.dealer_price}}</p>
-                <p v-if="list.market_attribute">指导价{{list.market_attribute.official_refer_price}}</p>
+                <p v-if="carList.market_attribute">{{carList.market_attribute.dealer_price}}</p>
+                <p v-if="carList.market_attribute">指导价{{carList.market_attribute.official_refer_price}}</p>
                 </div>
                 <div class="action">
                    <button>询问底价</button>
@@ -17,7 +16,7 @@
         </div>
         <div class="carlist">
             <div class="c-type">
-                <span @click="alldat">全部</span>
+                
                 <span :class="count==index?'active':''" v-for="(item,index) in nav"  :key="index" @click="alllist(item,index)">{{item}}</span>
                 
             </div>
@@ -45,69 +44,49 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
-
-export default {
-    props:{
-
-    },
-    components:{
-
-    },
-    data(){
-        return {
-            list:[],
-            nav:[],
-            datalist:[],
-            count:0
-        }
-    },
-    computed:{
-     
-    },
-    methods:{
-        alldat(){
-            this.datalist=this.list.list
+    import {mapState,mapActions}  from "vuex"
+    export default {
+        data(){
+            return {
+                //  SerialID:this.$route.query.SerialID
+                 SerialID:2593,
+                 count:0
+                
+            }
         },
-      alllist(ite,id){
-         this.count=id
-         let result= this.list.list.filter(item=>item.market_attribute.year==ite)
-         this.datalist=result
-        //  if(id==0){
-        //       this.datalist=this.list.list
-        //  }else{
-        //       let result= this.list.list.filter(item=>item.market_attribute.year==item)
-        //    this.datalist=result
-        //  }
+       computed: {
+           ...mapState({
+               carList:store=>store.details.carList,
+               nav:store=>store.details.nav,
+               datalist:store=>store.details.datalist
+           })
+       },  
+       methods:{
+           ...mapActions({
+               getCarList:"details/getCarList"
+           }),
+           alllist(ite,id){
+               console.log(this.datalist)
+            this.count=id
+          if(id==0){
+               this.datalist=this.carList.list
+          }else{
+            let result= this.carList.list.filter(item=>item.market_attribute.year==ite)
+            this.datalist=result
+          }
          
       },
       tab(){
-           this.$router.push('/tab')
-      }
+           let ID=this.$route.query.ID
+           this.$router.push({path:"/tab",query:{ID}})   
      
-      
-        
-    },
-    created(){
-   
-        axios.get('https://baojia.chelun.com/v2-car-getInfoAndListById.html?SerialID='+this.$route.query.ID).then((res)=>{
-        
-            this.list=JSON.parse(JSON.stringify(res.data.data))
-            console.log(JSON.parse(JSON.stringify(res.data.data)))
-            this.datalist=JSON.parse(JSON.stringify(res.data.data.list))
-            let newdata=this.datalist.map((item,index)=>{
-                return item.market_attribute.year
-            })
-           
-            console.log(Array.from(new Set(newdata)))
-            this.nav= Array.from(new Set(newdata))
-            console.log(this.nav)
-        })
-    },
-    mounted(){
-
+      }
+       },
+       created() {
+           this.getCarList(this.SerialID)
+           console.log(this.carList)
+       },
     }
-}
 </script>
 <style lang="scss" scoped>
 .box{
