@@ -1,25 +1,32 @@
 <template>
-    
     <div class="box">
         <div class="navimg">
-             <img :src="list.CoverPhoto" alt="" @click="fromDesign"/>
+             <img :src="carList.CoverPhoto" alt="" @click="tab">
         </div>
         <div class="info">
                 <div class="info1">
-                <p v-if="list.market_attribute">{{list.market_attribute.dealer_price}}</p>
-                <p v-if="list.market_attribute">指导价{{list.market_attribute.official_refer_price}}</p>
+                <p v-if="carList.market_attribute">{{carList.market_attribute.dealer_price}}</p>
+                <p v-if="carList.market_attribute">指导价{{carList.market_attribute.official_refer_price}}</p>
                 </div>
                 <div class="action">
+<<<<<<< HEAD
                    <button @click="fromInquiry">询问底价</button>
+=======
+                   <button >询问底价</button>
+>>>>>>> e2b7cbaf0941b427ad6ac7955d0efb1eb5decc8d
                 </div>
         </div>
         <div class="carlist">
             <div class="c-type">
+<<<<<<< HEAD
                 <span 
                 :class="count==index?'active':''" 
                 v-for="(item,index) in yearArr"  
                 :key="index" 
                 @click="yearType(index,$event)">{{item}}</span>
+=======
+                <span :class="count==index?'active':''" v-for="(item,index) in nav"  :key="index" @click="alllist(item,index)">{{item}}</span>
+>>>>>>> e2b7cbaf0941b427ad6ac7955d0efb1eb5decc8d
             </div>
             <div class="conlist" v-for="(item,index) in datalist" :key="index">
                  <p class="one">{{item.exhaust_str}}/{{item.max_power_str}}{{item.inhale_type}}</p>
@@ -31,20 +38,29 @@
                              <span>指导价{{item.market_attribute.dealer_price_max}}</span>
                               <span>{{item.market_attribute.dealer_price_min}}起</span>
                          </p>
+<<<<<<< HEAD
                          <button class="askqustion" @click="fromInquiry">询问底价</button>
+=======
+                         <button class="askqustion">询问底价</button>
+>>>>>>> e2b7cbaf0941b427ad6ac7955d0efb1eb5decc8d
                      </li>
                  </ul>
             </div>
         </div>
+<<<<<<< HEAD
         <div class="bottoms"></div>
         <div class="bottom" @click="fromInquiry">
+=======
+         <div class="clone"></div>
+        <div class="bottom">
+>>>>>>> e2b7cbaf0941b427ad6ac7955d0efb1eb5decc8d
             <p>询问底价</p>
             <p>本地经销商问你报价</p>
         </div>
-       
     </div>
 </template>
 <script>
+<<<<<<< HEAD
 import axios from 'axios'
 
 export default {
@@ -106,8 +122,44 @@ export default {
     },
     mounted(){
 
+=======
+    import {mapState,mapActions, mapMutations}  from "vuex"
+    export default {
+        data(){
+            return {
+                 SerialID:this.$route.query.ID,
+                 count:0,
+            }
+        },
+       computed: {
+           ...mapState({
+               carList:store=>store.details.carList,
+               nav:store=>store.details.nav,
+               datalist:store=>store.details.datlist
+           }),
+       },  
+       methods:{
+           ...mapActions({
+               getCarList:"details/getCarList"
+           }),
+          ...mapMutations({
+            setCurrent: "details/setCurrent"
+            }),
+            alllist(item) {
+            this.setCurrent(item);
+             this.getCarList(this.SerialID)
+            },
+   
+      tab(){
+           let ID=this.$route.query.ID
+           this.$router.push({path:"/designColor",query:{ID}})   
+      }
+       },
+       created() {
+           this.getCarList(this.SerialID)
+       },
+>>>>>>> e2b7cbaf0941b427ad6ac7955d0efb1eb5decc8d
     }
-}
 </script>
 <style lang="scss" scoped>
  .box{
@@ -253,4 +305,8 @@ top: -2.6875rem;
   .active{
         color: #73acff;
     }
+.clone{
+    width: 100%;
+    height:3.125rem;
+}
 </style>
