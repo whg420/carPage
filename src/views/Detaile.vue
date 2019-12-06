@@ -70,6 +70,8 @@ export default {
                this.$router.push({path:"/inquiry"})        
         },
         fromDesign(){
+         console.log(this.list.list,'-------------------全部');
+
                this.$router.push({path:"/designColor"})        
         },
       yearType(index,e){
@@ -79,7 +81,6 @@ export default {
     //    console.log(e.target.innerHTML);
        let val=e.target.innerHTML;
      if(val=='全部'){
-        //  console.log(this.list.list,'-------------------全部');
            this.datalist=this.list.list
      }else{
           let result= this.list.list.filter(item=>{

@@ -4,7 +4,14 @@
              <p><span @click="allclolor">全部颜色</span></p>
             <p><span @click="car">车款</span></p>
              </div>
-         <div class="connent"></div>
+         <div class="connent">
+             <ul v-for="(item,index) in list" :key="index" class="connent_ul">
+                 <li connent_li>{{item.Name}}</li>
+                 <!-- <ol v-for="(item,index) in item.List" :key="index" class="connent_img" >
+                     111
+                 </ol> -->
+             </ul>
+         </div>
     </div>
 </template>
 <script>
@@ -18,7 +25,7 @@ export default {
     },
     data(){
         return {
-
+            list:[]
         }
     },
     computed:{
@@ -34,7 +41,10 @@ export default {
       
     },
     created(){
-     
+     axios.get('http://baojia.chelun.com/v2-car-getImageList.html?SerialID=4765').then((res)=>{
+         this.list=res.data.data
+         console.log(JSON.parse(JSON.stringify(this.list)));
+     })
     },
     mounted(){
 
@@ -69,5 +79,18 @@ export default {
     margin-left: 6px;
     vertical-align: 5%;
   }
+  .connent{
+      width: 100%;
+  }
+  .connent_ul{
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+  }
+  .connent_img{
+      width: 33%;
+      border: 1px solid #000;
+  }
+ 
 </style>
   

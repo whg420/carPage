@@ -37,22 +37,17 @@
  
 <script>
 /**
- * Alert axios
- * @params 引入Alert  className 引入引入Alert,axios
+ * Alert vuex
+ * @params 引入Alert  引入mapState, mapMutations, mapGetters, mapActions
  */
-import axios from "axios";
 import Alert from "../components/Alert";
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
-import { log } from "util";
 export default {
   name: "home",
   data() {
     return {
-      //floorNav: [],
-      //floorList: [],
       floorIndex: 1,
       value1: false
-      //arList: []
     };
   },
   /**
@@ -62,6 +57,10 @@ export default {
   components: {
     Alert
   },
+   /**
+   * 注册组件
+   * @params Alert 注册组件
+   */
   computed: {
     ...mapState({
       homeStateList: state => state.home.homeStateList,
@@ -88,23 +87,7 @@ export default {
      */
     alertLeft(index) {
       this.alertActionsList(this.floorList[index].MasterID);
-      console.log(this.floorList[index].MasterID)
       this.value1 = true;
-      // axios
-      //  .get(
-      //   `https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html?MasterID=${this.floorList[index].MasterID}`
-      // )
-      //.then(response => {
-      //  this.arList = response.data.data;
-      // console.log(JSON.parse(JSON.stringify(this.arList)));
-      //})
-      // .catch(error => {
-      // handle error
-      //  console.log(error);
-      // })
-      //.then(() => {
-      // always executed
-      //});
     },
     /**
      * 设置楼层导航事件驱动方法
