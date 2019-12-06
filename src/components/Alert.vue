@@ -1,11 +1,7 @@
 <template>
   <div>
-<<<<<<< HEAD
       <!-- mask-style="background: rgba(0, 0, 0, 0)" -->
     <Drawer :closable="false"  v-model="value1" >
-=======
-    <Drawer :closable="false"  v-model="value1">
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
       <ul v-for="(item,index) in arList" :key="index" class="Art">
           <li class="ArtTitle">{{item.GroupName}}</li>
           <ol v-for="(item,index) in item.GroupList" :key="index" class="GroupList" @click="cks(item)">

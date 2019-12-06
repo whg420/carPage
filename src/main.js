@@ -4,12 +4,9 @@ import router from './router'
 import store from './store'
 import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
-<<<<<<< HEAD
 import VueLazyload from "vue-lazyload"
 
 import './reset.css'
-=======
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
 Vue.use(ViewUI);
 
 Vue.config.productionTip = false

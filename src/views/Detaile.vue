@@ -1,75 +1,42 @@
 <template>
     
     <div class="box">
-<<<<<<< HEAD
         <div class="navimg">
              <img :src="list.CoverPhoto" alt="" @click="fromDesign"/>
         </div>
         <div class="info">
-=======
-     
-        <div class="navimg">
-             <img :src="list.CoverPhoto" alt="" @click="tab">
-        </div>
-        <div class="info">
-
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
                 <div class="info1">
                 <p v-if="list.market_attribute">{{list.market_attribute.dealer_price}}</p>
                 <p v-if="list.market_attribute">指导价{{list.market_attribute.official_refer_price}}</p>
                 </div>
                 <div class="action">
-<<<<<<< HEAD
                    <button @click="fromInquiry">询问底价</button>
-=======
-                   <button>询问底价</button>
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
                 </div>
         </div>
         <div class="carlist">
             <div class="c-type">
-<<<<<<< HEAD
                 <span 
                 :class="count==index?'active':''" 
                 v-for="(item,index) in yearArr"  
                 :key="index" 
                 @click="yearType(index,$event)">{{item}}</span>
             </div>
-=======
-                <span @click="alldat">全部</span>
-                <span :class="count==index?'active':''" v-for="(item,index) in nav"  :key="index" @click="alllist(item,index)">{{item}}</span>
-                
-            </div>
-            
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
             <div class="conlist" v-for="(item,index) in datalist" :key="index">
                  <p class="one">{{item.exhaust_str}}/{{item.max_power_str}}{{item.inhale_type}}</p>
                  <ul>
                      <li>
-<<<<<<< HEAD
                          <p>{{item.market_attribute.year}}款{{item.car_name}}</p>
-=======
-                         <p>{{item.market_attribute.year}}{{item.car_name}}</p>
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
                          <p>156马力9档手自一体</p>
                          <p>
                              <span>指导价{{item.market_attribute.dealer_price_max}}</span>
                               <span>{{item.market_attribute.dealer_price_min}}起</span>
                          </p>
-<<<<<<< HEAD
                          <button class="askqustion" @click="fromInquiry">询问底价</button>
-=======
-                         <button class="askqustion">询问底价</button>
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
                      </li>
                  </ul>
             </div>
         </div>
-<<<<<<< HEAD
         <div class="bottom" @click="fromInquiry">
-=======
-        <div class="bottom">
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
             <p>询问底价</p>
             <p>本地经销商问你报价</p>
         </div>
@@ -89,22 +56,15 @@ export default {
     data(){
         return {
             list:[],
-<<<<<<< HEAD
             datalist:[],
             count:0,
             yearArr:[]
-=======
-            nav:[],
-            datalist:[],
-            count:0
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
         }
     },
     computed:{
      
     },
     methods:{
-<<<<<<< HEAD
         fromInquiry(){
                this.$router.push({path:"/inquiry"})        
         },
@@ -140,44 +100,6 @@ export default {
             });
             this.list=JSON.parse(JSON.stringify(res.data.data))
             this.datalist=JSON.parse(JSON.stringify(res.data.data.list))
-=======
-        alldat(){
-            this.datalist=this.list.list
-        },
-      alllist(ite,id){
-         this.count=id
-         let result= this.list.list.filter(item=>item.market_attribute.year==ite)
-         this.datalist=result
-        //  if(id==0){
-        //       this.datalist=this.list.list
-        //  }else{
-        //       let result= this.list.list.filter(item=>item.market_attribute.year==item)
-        //    this.datalist=result
-        //  }
-         
-      },
-      tab(){
-           this.$router.push('/tab')
-      }
-     
-      
-        
-    },
-    created(){
-   
-        axios.get('https://baojia.chelun.com/v2-car-getInfoAndListById.html?SerialID='+this.$route.query.ID).then((res)=>{
-        
-            this.list=JSON.parse(JSON.stringify(res.data.data))
-            console.log(JSON.parse(JSON.stringify(res.data.data)))
-            this.datalist=JSON.parse(JSON.stringify(res.data.data.list))
-            let newdata=this.datalist.map((item,index)=>{
-                return item.market_attribute.year
-            })
-           
-            console.log(Array.from(new Set(newdata)))
-            this.nav= Array.from(new Set(newdata))
-            console.log(this.nav)
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
         })
     },
     mounted(){
@@ -186,11 +108,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-<<<<<<< HEAD
  .box{
-=======
-.box{
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
      width: 100%;
      height: 100%;
      position: relative;
@@ -267,14 +185,9 @@ top: -2.6875rem;
     align-items: center;
     padding-left: 1rem;
     span{
-<<<<<<< HEAD
     display: block;
     font-size: 1.05rem;
     margin-right: 1.2rem;
-=======
-    font-size: 1.05rem;
-    margin-right: 1.5rem;
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
     }
  }
  .one{
@@ -324,14 +237,6 @@ top: -2.6875rem;
      border: none;
      background: #fff;
      border-top: 0.0625rem solid#eeeeee;
-<<<<<<< HEAD
-=======
-
-  }
-  .active{
-        color: #73acff
-    }
->>>>>>> 2d4599281a2e9d571e48f83d40923960eabc7909
 
   }
   .active{
