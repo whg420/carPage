@@ -3,8 +3,8 @@ const state={
    carList:[],
    nav:[],
    datlist:[],
-   current:"全部"
-   
+   current:"全部",
+   carNav:[]
 }
 const mutations={
     setCarList(state,payload){
@@ -15,6 +15,7 @@ const mutations={
         }) 
         state.datlist=payload.list
         state.nav=['全部',...new Set(newdata)]
+        state.carNav=[...new Set(newdata)]
         if(state.current=="全部"){
             state.datlist = payload.list
         }else if(state.current){

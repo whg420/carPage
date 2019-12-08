@@ -29,7 +29,7 @@ export default {
             this.$router.push('/carColor')
         },
         car(){
-            this.$router.push('/car')
+            this.$router.push('/carDesign')
         }
       
     },

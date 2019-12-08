@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <p class="allse">全部颜色</p>
+    <p class="allse" @click="fromDesignColor">全部颜色</p>
     <div>
       <p class="nav">
         <span
@@ -33,6 +33,9 @@ export default {
   },
   computed: {},
   methods: {
+    fromDesignColor(){
+        this.$router.push({path:"designColor"})   
+    },
     hanle(item, index) {
       (this.type = item), (this.count = index);
       console.log(item);
@@ -48,8 +51,11 @@ export default {
       let data = JSON.parse(JSON.stringify(res.data.data));
       let values = Object.values(data);
            this.list = values;
+           console.log(values)
       let keys = Object.keys(data);
            this.navlist = keys;
+           console.log(keys)
+
       // 对象转数组后
       // ['2019','2020'.....]
       // ['2019对应的数据数组','2020对应的数据数组'.....]

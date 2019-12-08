@@ -88,23 +88,7 @@ export default {
      */
     alertLeft(index) {
       this.alertActionsList(this.floorList[index].MasterID);
-      console.log(this.floorList[index].MasterID)
       this.value1 = true;
-      // axios
-      //  .get(
-      //   `https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html?MasterID=${this.floorList[index].MasterID}`
-      // )
-      //.then(response => {
-      //  this.arList = response.data.data;
-      // console.log(JSON.parse(JSON.stringify(this.arList)));
-      //})
-      // .catch(error => {
-      // handle error
-      //  console.log(error);
-      // })
-      //.then(() => {
-      // always executed
-      //});
     },
     /**
      * 设置楼层导航事件驱动方法
