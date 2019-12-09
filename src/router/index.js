@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Details from "../views/details.vue"
+import carImg from '../views/carImg.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -21,6 +22,10 @@ const routes = [
   {
     path:"/details",
     component:Details
+  },
+  {
+    path:"/carImg",
+    component:carImg
   }
 ]
 
