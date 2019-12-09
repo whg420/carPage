@@ -50,7 +50,8 @@
     export default {
         data(){
             return {
-                 SerialID:this.$route.query.ID,
+                //  SerialID:this.$route.query.ID,
+                 SerialID:4765,
                  count:0,
                  counts:0,
                  MasterID:this.$route.query.MasterID,
@@ -82,8 +83,10 @@
             },
    
       tab(){
-           let ID=this.$route.query.ID
-           this.$router.push({path:"/designColor",query:{ID}})   
+        //    let ID=this.$route.query.ID
+           let ID=this.SerialID
+        //    console.log(this.SerialID)
+           this.$router.push({path:"/carImg",query:{ID}})   
       }
        },
        created() {
