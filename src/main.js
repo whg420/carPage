@@ -8,8 +8,9 @@ import VueLazyload from "vue-lazyload"
 
 import './reset.css'
 Vue.use(ViewUI);
-
 Vue.config.productionTip = false
+Vue.prototype.$bus=new Vue()
+
 //配置图片懒加载
 Vue.use(VueLazyload, {
   preLoad: 1.3,

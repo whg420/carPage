@@ -28,6 +28,7 @@ const mutations = {
   },
   // 弹框同步方法
   alertMutationsList(state, payload){
+    // console.log(JSON.parse(JSON.stringify(payload)));
     state.arList=payload
   }
 }

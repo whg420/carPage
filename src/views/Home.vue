@@ -1,7 +1,7 @@
 <template>
   <div class="floor">
     <!-- 父传子将flag变量和ID传到弹框组件中 -->
-    <Alert :value1="value1" :arList="arList" />
+    <Alert :value1="value1" :arList="arList" :MasterID="MasterID"/>
     <!-- {{floorNavList}} -->
     <section class="floor-nav" id="floorNavList">
       <!-- 右侧列表 -->
@@ -51,8 +51,9 @@ export default {
       //floorNav: [],
       //floorList: [],
       floorIndex: 1,
-      value1: false
-      //arList: []
+      value1: false,
+      MasterID:null
+      //arList: [],
     };
   },
   /**
@@ -88,6 +89,7 @@ export default {
      */
     alertLeft(index) {
       this.alertActionsList(this.floorList[index].MasterID);
+      this.MasterID=this.floorList[index].MasterID
       this.value1 = true;
     },
     /**

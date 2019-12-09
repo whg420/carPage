@@ -9,7 +9,7 @@
                 <p v-if="carList.market_attribute">指导价{{carList.market_attribute.official_refer_price}}</p>
                 </div>
                 <div class="action">
-                   <button @click="fromInquiry">询问底价</button>
+                   <button @click="fromInquiry(counts)">询问底价</button>
                 </div>
         </div>
         <div class="carlist">
@@ -26,13 +26,13 @@
                              <span>指导价{{item.market_attribute.dealer_price_max}}</span>
                               <span>{{item.market_attribute.dealer_price_min}}起</span>
                          </p>
-                         <button class="askqustion"  @click="fromInquiry">询问底价</button>
+                         <button class="askqustion"  @click="fromInquiry(index)">询问底价</button>
                      </li>
                  </ul>
             </div>
         </div>
          <div class="clone"></div>
-        <div class="bottom" @click="fromInquiry">
+        <div class="bottom" @click="fromInquiry(counts)">
             <p>询问底价</p>
             <p>本地经销商问你报价</p>
         </div>
@@ -45,6 +45,8 @@
             return {
                  SerialID:this.$route.query.ID,
                  count:0,
+                 counts:0,
+                 MasterID:this.$route.query.MasterID,
             }
         },
        computed: {
@@ -61,10 +63,10 @@
           ...mapMutations({
             setCurrent: "details/setCurrent"
             }),
-           fromInquiry(){
-               console.log(this.SerialID);
-               let id=this.SerialID
-           this.$router.push({path:"/inquiry",query:{id}})   
+           fromInquiry(index){
+               let ID=this.SerialID
+               let MasterID=this.MasterID
+           this.$router.push({path:"/inquiry",query:{ID,index,MasterID}})   
 
            },
             alllist(item) {
@@ -126,7 +128,7 @@ top: -2.6875rem;
      }
  }
  .info1 p:first-child{
-     font-size: 18px;
+     font-size: 1.05rem;
      color: red;
      font-weight: 400;
      padding-left: 0.8125rem;

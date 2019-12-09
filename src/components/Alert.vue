@@ -27,7 +27,7 @@ export default {
  * 父传子将控制的value1变量和arList数据传递到抽屉组件
  * @params axios
  */
-  props: ["value1","arList"],
+  props: ["value1","arList","MasterID"],
   data() {
     return {
         //  value1: false
@@ -39,8 +39,10 @@ export default {
  * @params $router SerialID
  */
       cks(data){
+          let pic=data.Picture
           let ID=data.SerialID
-         this.$router.push({path:"/detaile",query:{ID}})        
+          let MasterID=this.MasterID
+         this.$router.push({path:"/detaile",query:{ID,MasterID}})     
       }
 
   },
