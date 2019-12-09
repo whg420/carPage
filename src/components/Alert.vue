@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Drawer :closable="false"  v-model="value1" mask-style="background: rgba(0, 0, 0, 0)">
+      <!-- mask-style="background: rgba(0, 0, 0, 0)" -->
+    <Drawer :closable="false"  v-model="value1" >
       <ul v-for="(item,index) in arList" :key="index" class="Art">
           <li class="ArtTitle">{{item.GroupName}}</li>
           <ol v-for="(item,index) in item.GroupList" :key="index" class="GroupList" @click="cks(item)">
@@ -26,7 +27,7 @@ export default {
  * 父传子将控制的value1变量和arList数据传递到抽屉组件
  * @params axios
  */
-  props: ["value1","arList"],
+  props: ["value1","arList","MasterID"],
   data() {
     return {
         //  value1: false
@@ -38,8 +39,10 @@ export default {
  * @params $router SerialID
  */
       cks(data){
+          let pic=data.Picture
           let ID=data.SerialID
-         this.$router.push({path:"/detaile",query:{ID}})        
+          let MasterID=this.MasterID
+         this.$router.push({path:"/detaile",query:{ID,MasterID}})     
       }
 
   },
@@ -51,29 +54,34 @@ export default {
 </script>
 
 <style scoped>
-
 .Art{
     width: 114%;
-    margin-left: -16px;
+    margin-left: -1rem;
 }
 .Art:nth-child(1){
-    margin-top: -16px;
+    margin-top: -1rem;
 }
 .Art>.ArtTitle{
     width: 100%;
+    height: 1.5rem;
     background: #f2f2f2;
-    margin-bottom: 1px;
+    color: #717171;
+    padding-left:1rem ;
+
 }
 .GroupList{
     width: 100%;
+    height: 4.5rem;
     display: flex;
     justify-content: left;
     align-items: center;
-    border-bottom: 1px #ccc solid;
+    border-bottom: 0.0625rem #ccc solid;
+    padding-left:0.875rem ;
+
 }
 .GroupList>img{
-    width: 90px;
-    height: 50px;
+    width: 5.625rem;
+    height: 3.75rem;
 }
 .GroupList>.GroupList_ul{
     display: flex;
@@ -82,4 +90,5 @@ export default {
 .colorRed{
     color: #f00;
 }
+
 </style>
