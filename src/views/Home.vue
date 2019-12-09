@@ -47,13 +47,10 @@ export default {
   data() {
     return {
       floorIndex: 1,
-<<<<<<< HEAD
+
       value1: false,
       MasterID:null
       //arList: [],
-=======
-      value1: false
->>>>>>> dev
     };
   },
   /**
@@ -93,10 +90,7 @@ export default {
      */
     alertLeft(index) {
       this.alertActionsList(this.floorList[index].MasterID);
-<<<<<<< HEAD
       this.MasterID=this.floorList[index].MasterID
-=======
->>>>>>> dev
       this.value1 = true;
     },
     /**

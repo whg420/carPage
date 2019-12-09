@@ -9,6 +9,11 @@ const routes = [
     name: 'home',
     component: () => import('../views/Home.vue')
   },
+  {
+    path: '/detaile',
+    name: 'detaile',
+    component: () => import('../views/Detaile.vue')
+  },
 
   // 汽车颜色与款式
   {
