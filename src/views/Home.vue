@@ -37,23 +37,23 @@
  
 <script>
 /**
- * Alert axios
- * @params 引入Alert  className 引入引入Alert,axios
+ * Alert vuex
+ * @params 引入Alert  引入mapState, mapMutations, mapGetters, mapActions
  */
-import axios from "axios";
 import Alert from "../components/Alert";
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
-import { log } from "util";
 export default {
   name: "home",
   data() {
     return {
-      //floorNav: [],
-      //floorList: [],
       floorIndex: 1,
+<<<<<<< HEAD
       value1: false,
       MasterID:null
       //arList: [],
+=======
+      value1: false
+>>>>>>> dev
     };
   },
   /**
@@ -63,6 +63,10 @@ export default {
   components: {
     Alert
   },
+   /**
+   * 注册组件
+   * @params Alert 注册组件
+   */
   computed: {
     ...mapState({
       homeStateList: state => state.home.homeStateList,
@@ -89,7 +93,10 @@ export default {
      */
     alertLeft(index) {
       this.alertActionsList(this.floorList[index].MasterID);
+<<<<<<< HEAD
       this.MasterID=this.floorList[index].MasterID
+=======
+>>>>>>> dev
       this.value1 = true;
     },
     /**
