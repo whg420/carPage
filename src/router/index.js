@@ -17,9 +17,9 @@ const routes = [
 
   // 汽车颜色与款式
   {
-    path: '/designColor',
-    name: 'designColor',
-    component: () => import('../views/DesignColor.vue')
+    path: '/colorDesign',
+    name: 'colorDesign',
+    component: () => import('../views/colorDesign.vue')
   },
    // 汽车颜色页
    {

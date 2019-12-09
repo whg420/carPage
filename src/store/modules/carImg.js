@@ -20,7 +20,7 @@ const actions={
         console.log(payload)
         let res = await getCarImg(payload)
         console.log(res)
-        commit("setCarImg",res.data)
+        commit("setCarImg",res)
     }
 }
 export default({
