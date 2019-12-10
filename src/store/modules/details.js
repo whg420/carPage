@@ -30,6 +30,7 @@ const mutations={
 const actions={
     async getCarList({commit},payload){
         let res =await getCarList(payload)
+        console.log(res)
         commit("setCarList",res)                 
      }
 }
