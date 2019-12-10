@@ -1,7 +1,7 @@
 <template>
     <div>
          <div class="image_item_list">
-        <div class="image_ps">
+        <div class="image_ps" @click="fromBscroll">
             <p class="image_ps_wan">{{item.Name}}</p>
             <p>{{item.Count}}张</p>
         </div>
@@ -28,7 +28,9 @@ export default {
 
     },
     methods:{
-
+        fromBscroll(){
+            this.$router.push({path:"/bscroll"})   
+        }
     },
     created(){
 

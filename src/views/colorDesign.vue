@@ -2,8 +2,8 @@
     <div>
        <div class="box">
          <div class="navlist">
-             <p><span>全部颜色</span></p>
-             <p><span>车款</span></p>
+             <p @click="fromColor"><span>全部颜色</span></p>
+             <p @click="fromDesign"><span>车款</span></p>
          </div>
             <div class="connent">
                   <CarImg v-for="(item,index) in seriesDate" :key="index" :item="item"/>
@@ -35,7 +35,13 @@ export default {
     methods:{
         ...mapActions({
            getCarImg:"carImg/getCarImg"
-        })
+        }),
+        fromColor(){
+this.$router.push({path:"/carColor"})   
+        },
+        fromDesign(){
+this.$router.push({path:"/carDesign"})   
+        }
     },
     created(){
 

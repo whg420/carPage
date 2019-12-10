@@ -30,7 +30,6 @@ export default {
   props: ["value1","arList","MasterID"],
   data() {
     return {
-        //  value1: false
     };
   },
   methods: {

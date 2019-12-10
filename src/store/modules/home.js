@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2019-12-09 19:57:20
+ * @LastEditTime: 2019-12-10 19:49:14
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \carPage\src\store\modules\home.js
+ */
 import { homeActionsList,alertActionsList } from "../../service/index"
 const state = {
   // 页面所有数据 
@@ -6,9 +14,15 @@ const state = {
   floorList: [],
   // 右侧数据
   floorNav: [],
-  arList:[]
+  arList:[],
+  // 控制变量
+  value1: false
+
 }
 const mutations = {
+  changeValue1(state, payload){
+    state.value1=payload
+  },
   // 首页同步方法
   homeMutationsList(state, payload) {
     // 页面所有数据 
@@ -28,7 +42,6 @@ const mutations = {
   },
   // 弹框同步方法
   alertMutationsList(state, payload){
-    // console.log(JSON.parse(JSON.stringify(payload)));
     state.arList=payload
   }
 }

@@ -34,7 +34,8 @@ export default {
   computed: {},
   methods: {
     fromDesignColor(){
-        this.$router.push({path:"designColor"})   
+      let ID=2593
+        this.$router.push({path:"/colorDesign",query:{ID}})   
     },
     hanle(item, index) {
       (this.type = item), (this.count = index);

@@ -1,15 +1,25 @@
+/*
+ * @Author: your name
+ * @Date: 2019-12-09 20:38:22
+ * @LastEditTime: 2019-12-10 19:49:27
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \carPage\src\store\modules\carImg.js
+ */
 import {getCarImg} from '@/service/index'
 const state = {
     serDate:[]
 }
 const mutations={
      setCarImg(state,payload){
-        console.log(payload)
          state.serDate = payload.map(item => {
             item.List = item.List.map(ite => {
+              /**
+               * @description: 图片处理将{0}替换成数字
+               * @param {type} Url
+               */
               ite.Url = ite.Url.replace('{0}', 3)
               return ite
-           
             })
             return item
           })
@@ -17,10 +27,8 @@ const mutations={
 }
 const actions={
     async getCarImg ({commit},payload) {
-        console.log(payload)
         let res = await getCarImg(payload)
-        console.log(res)
-        commit("setCarImg",res.data)
+        commit("setCarImg",res)
     }
 }
 export default({

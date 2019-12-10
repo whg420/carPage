@@ -20,8 +20,6 @@ const mutations={
         }else if(state.current){
             state.datlist=payload.list.filter(item=>item.market_attribute.year==state.current)
         }
-        console.log(state.datlist[0],'--------------state');
-       
     },
     setCurrent(state,payload){
         state.current=payload
