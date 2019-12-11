@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2019-12-10 08:25:30
+ * @LastEditTime: 2019-12-11 18:38:35
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \carPage\src\components\Inquiry\check.vue
+ -->
 <template>
     <div class="ckeck">
            <Checkbox v-model="single" class="checkList">
@@ -6,7 +14,7 @@
                    <li>{{item.address}}</li>
                </ul>
                <ol>
-                    <li>{{item.promotePrice}}</li>
+                    <li>{{item.promotePrice}}<b class="redColor">万</b></li>
                    <li>售{{item.saleRange}}</li>
                </ol>
                </Checkbox>
@@ -37,6 +45,9 @@ export default {
 }
 </script>
 <style scoped lang="css">
+.redColor{
+    color:#f00;
+}
 .ckeck{
     width: 100%;
     background: #fff;

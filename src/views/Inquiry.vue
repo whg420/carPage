@@ -1,20 +1,21 @@
 <template>
   <div>
-    <ul class="iqx">
+    <Poptip :title="title" :content="content" placement="bottom-end">
+      <p class="hint">可向多个商家咨询最低价，商家及时回复@</p>
+    </Poptip>
+    <!-- <ul class="iqx" v-if="titleList">
       <li>
-        <img :src="pic" alt />
+        <img :src="titleList.serial.Picture" alt />
       </li>
       <li>
-        <p>{{carList.AliasName}}</p>
-        <p>{{carList.list[count].market_attribute.year}}款{{carList.list[count].car_name}}</p>
+        <p>{{titleList.serial.AliasName}}</p>
+        <p>{{titleList.car_name}}款</p>
       </li>
       <li>
         <b>></b>
       </li>
-    </ul>
-
-    <p>个人信息</p>
-
+    </ul> -->
+    <p class="title">个人信息</p>
     <ul class="personageList">
       <li>
         <b>姓名</b>
@@ -30,12 +31,11 @@
       </li>
       <button>询问最低价</button>
     </ul>
-
-    <p>选择报价经销商</p>
-    <ul v-for="(item,index) in list" :key="index">
+    <p class="title">选择报价经销商</p>
+    <!-- <ul v-for="(item,index) in list" :key="index">
       <Check :item="item" :single="single" />
-    </ul>
-    <!-- <Check :list="list" :single="single"/> -->
+    </ul> -->
+    {{InquiryList}}
   </div>
 </template>
 
@@ -43,7 +43,6 @@
 import axios from "axios";
 import Check from "../components/Inquiry/check.vue";
 import { mapState, mapActions, mapMutations } from "vuex";
-
 export default {
   data() {
     return {
@@ -51,7 +50,10 @@ export default {
       count: this.$route.query.index,
       MasterID: this.$route.query.MasterID,
       list: [],
-      single: false
+      titleList:[],
+      single: false,
+      content:"私人信息严格保密，最新报价立等可取",
+      title:"安全    安心省力    贴心服务"
     };
   },
   components: {
@@ -59,14 +61,12 @@ export default {
   },
   computed: {
     ...mapState({
-      carList: store => store.details.carList,
       datlist: store => store.details.datlist,
-      InquiryList: store => store.Inquiry.InquiryList,
+      InquiryList: store => store.Inquiry.InquiryList
     })
   },
   methods: {
     ...mapActions({
-      getCarList: "details/getCarList",
       InquiryActionList: "Inquiry/InquiryActionList"
     }),
     fromAddress() {
@@ -74,41 +74,65 @@ export default {
     }
   },
   created() {
-    axios
-      .get(
-        `https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html?MasterID=${this.MasterID}`
-      )
-      .then(res => {
-        let data = res.data.data;
-        data.forEach(item => {
-          let pic = item.GroupList.forEach(item => {
-            let ID = this.$route.query.ID;
-            if (item.SerialID == ID) {
-              this.pic = item.Picture;
-            }
-          });
-        });
-      });
-    let ID = this.$route.query.ID;
-    this.getCarList(ID);
+      console.log(this.datlist[this.count].car_id,'----------------------------carId');
+      console.log(this.count,'----------------------------count');
     let carId = this.datlist[this.count].car_id;
-    let cityId=2;
-    
-      this.InquiryActionList(carId,cityId)
+    let cityId = 2;
+    this.InquiryActionList(carId, cityId);
 
-    axios
-      .get(
-        `https://baojia.chelun.com/v2-dealer-alllist.html?carId=${carId}&cityId=${2}`
-      )
-      .then(res => {
-        console.log(res.data.data.list, "-------------------------res");
-        this.list = res.data.data.list;
-      });
+    // axios
+    //   .get(
+    //     `https://baojia.chelun.com/v2-dealer-alllist.html?carId=${carId}&cityId=${2}`
+    //   )
+    //   .then(res => {
+    //     // console.log(res.data.data.details, "-------------------------res");
+    //     this.list = res.data.data.list;
+    //     this.titleList=res.data.data.details
+    //   });
   }
 };
 </script>
 
 <style scoped>
+div{
+    width: 100%;
+}
+.ivu-poptip {
+  width: 100%;
+  height: 2rem;
+}
+.ivu-poptip-rel {
+  width: 100%;
+  height: 2rem;
+}
+.ivu-btn ivu-btn-default {
+  width: 100%;
+  height: 2rem;
+}
+.hint {
+  width: 23.4375rem;
+  height: 2rem;
+  background: #79cd92;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.top,
+.bottom {
+  text-align: center;
+}
+.center {
+  width: 100%;
+  margin: 0.625rem auto;
+  overflow: hidden;
+}
+.center-left {
+  float: left;
+}
+.center-right {
+  float: right;
+}
 .iqx {
   width: 100%;
   height: 6.25rem;
@@ -142,13 +166,18 @@ div {
   height: 100%;
   background: #f4f4f4;
 }
-p {
+.title{
+width: 100%;
+height:1.625rem;
   background: #eeeeee;
-  width: 100%;
+  font-size:0.78rem;
+  display: flex;
+  align-items: center;
+  padding-left: 0.6rem;
 }
 .personageList {
   width: 100%;
-  height: 230px;
+  height: 14.375rem;
   background: #fff;
   display: flex;
   align-items: center;
@@ -156,10 +185,10 @@ p {
 }
 .personageList > li {
   width: 95%;
-  height: 50px;
+  height: 3.125rem;
   margin: 0 auto;
-  border-bottom: 1px #ccc solid;
-  font-size: 20px;
+  border-bottom: 0.0625rem #ccc solid;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -169,10 +198,10 @@ p {
 }
 .personageList > button {
   width: 80%;
-  height: 40px;
+  height:2.5rem;
   background: #3aacff;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   color: #fff;
   margin-top: 20px;
 }

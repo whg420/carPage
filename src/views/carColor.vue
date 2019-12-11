@@ -33,9 +33,9 @@ export default {
   },
   computed: {},
   methods: {
-    fromDesignColor(){
-      let ID=2593
-        this.$router.push({path:"/colorDesign",query:{ID}})   
+    fromDesignColor() {
+      let ID = 2593;
+      this.$router.push({ path: "/colorDesign", query: { ID } });
     },
     hanle(item, index) {
       (this.type = item), (this.count = index);
@@ -51,11 +51,11 @@ export default {
       // 请求到的数据{'2019':2019对应的数据数组,'2020':2020对应的数据数组.........}
       let data = JSON.parse(JSON.stringify(res.data.data));
       let values = Object.values(data);
-           this.list = values;
-           console.log(values)
+      this.list = values;
+      console.log(values);
       let keys = Object.keys(data);
-           this.navlist = keys;
-           console.log(keys)
+      this.navlist = keys;
+      console.log(keys);
 
       // 对象转数组后
       // ['2019','2020'.....]

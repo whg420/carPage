@@ -47,10 +47,8 @@ export default {
   data() {
     return {
       floorIndex: 1,
-
       value1: false,
       MasterID:null
-      //arList: [],
     };
   },
   /**
@@ -65,6 +63,11 @@ export default {
    * @params Alert 注册组件
    */
   computed: {
+    /**
+     * @description: 全部数据,左侧主要列表页数据,右侧A...数据,弹框数据
+     * @param {type} homeStateList,floorList,floorNav,arList
+     * @return: 
+     */
     ...mapState({
       homeStateList: state => state.home.homeStateList,
       floorList: state => state.home.floorList,
@@ -73,20 +76,26 @@ export default {
     })
   },
   /**
-   * 在初始的时候请求数据
-   * @params axios 请求数据
+   * @description: created初始阶段调用渲染
+   * @param {type} this.homeActionsList
+   * @return: 
    */
   created() {
     this.homeActionsList();
   },
+  /**
+   * @description: 在methods中调用所用到的vuex异步方法
+   * @param {type} homeActionsList，alertActionsList
+   * @return: 
+   */
   methods: {
     ...mapActions({
       homeActionsList: "home/homeActionsList",
       alertActionsList: "home/alertActionsList"
     }),
     /**
-     * 点击弹出
-     * @params flag 控制flag变量
+     * @description: alertLeft点击弹出事件，传入对应的index下标和传入MasterID
+     * @param {type} index，this.floorList[index].MasterID
      */
     alertLeft(index) {
       this.alertActionsList(this.floorList[index].MasterID);
@@ -126,7 +135,7 @@ export default {
   overflow-y: scroll;
 }
 .col {
-  width: 23.37rem;
+  width: 100%;
   height: 1.3125rem;
   color: #b5b5b5;
   background: #f4f4f4;
