@@ -50,7 +50,7 @@
     export default {
         data(){
             return {
-                 SerialID:this.$route.query.ID,
+                 SerialID:this.$route.query.SerialID,
                 //  SerialID:4765,
                  count:0,
                  counts:0,
@@ -77,16 +77,17 @@
            this.$router.push({path:"/inquiry",query:{ID,index,MasterID}})   
 
            },
-            alllist(item) {
+            alllist(item,index) {
+                this.count=index
             this.setCurrent(item);
              this.getCarList(this.SerialID)
             },
    
       tab(){
-           let ID=this.$route.query.ID
+           let SerialID=this.$route.query.SerialID
         //    let ID=this.SerialID
    
-           this.$router.push({path:"/colorDesign",query:{ID}})   
+           this.$router.push({path:"/colorDesign",query:{SerialID}})   
       }
        },
        created() {

@@ -1,18 +1,19 @@
 <template>
   <div class="box">
+    
     <p class="allse" @click="fromDesignColor">全部颜色</p>
     <div>
       <p class="nav">
         <span
           :class="count==index?'active':''"
-          v-for="(item,index) in navlist"
+          v-for="(item,index) in navs"
           :key="index"
           @click="hanle(item,index)"
         >{{item}}</span>
       </p>
-      <ul v-for="(item,index) in list[count]" :key="index">
+      <ul v-for="(item,index) in lists[count]" :key="index">
         <li>
-          <span :style="{'background':item.Value}"></span>
+          <span :style="{'background':item.Value}" @click="colorhanle(item.Name,item.ColorId)"></span>
           {{item.Name}}
         </li>
       </ul>
@@ -21,47 +22,46 @@
 </template>
 <script>
 import Axios from "axios";
+import { mapState, mapActions } from 'vuex';
 export default {
   props: {},
   components: {},
   data() {
     return {
-      list: [],
-      navlist: [],
-      count: 0
+      list: [],//颜色
+      navlist: [],//年份
+      count: 0//下标
     };
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      navs:store=>store.CarColor.navlist,
+      lists:store=>store.CarColor.list
+    })
+  },
   methods: {
+    ...mapActions({
+      getCarColor:"CarColor/getCarColor"
+    }),
     fromDesignColor(){
         this.$router.push({path:"colorDesign"})   
     },
     hanle(item, index) {
       (this.type = item), (this.count = index);
       console.log(item);
+    },
+    colorhanle(name,ColorId){
+        this.$router.push({
+          path:"/colorDesign",
+          query:{name,ColorId}})   
     }
   },
   created() {
-    Axios.get(
-      "https://baojia.chelun.com/v2-car-getModelImageYearColor.html?SerialID=2364"
-    ).then(res => {
-      //    this.list=res.data.data;
-      console.log(JSON.parse(JSON.stringify(res.data.data)), "----------color");
-      // 请求到的数据{'2019':2019对应的数据数组,'2020':2020对应的数据数组.........}
-      let data = JSON.parse(JSON.stringify(res.data.data));
-      let values = Object.values(data);
-           this.list = values;
-           console.log(values)
-      let keys = Object.keys(data);
-           this.navlist = keys;
-           console.log(keys)
-
-      // 对象转数组后
-      // ['2019','2020'.....]
-      // ['2019对应的数据数组','2020对应的数据数组'.....]
-    });
   },
-  mounted() {}
+  mounted() {
+   
+    this.getCarColor(this.$route.query.ID)
+  }
 };
 </script>
 <style lang="scss" scoped>

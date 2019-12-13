@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2019-12-09 11:54:08
+ * @LastEditTime: 2019-12-12 20:51:53
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue11.29\src\views\colorDesign.vue
+ -->
 <template>
     <div>
        <div class="box">
@@ -24,7 +32,7 @@ export default {
     },
     data(){
         return {
-
+            SerialID:this.$route.query.SerialID
         }
     },
     computed:{
@@ -37,7 +45,11 @@ export default {
            getCarImg:"carImg/getCarImg"
         }),
         fromColor(){
-this.$router.push({path:"/carColor"})   
+            let ID=this.SerialID
+this.$router.push({
+    path:"/carColor",
+    query:{ID}
+    })   
         },
         fromDesign(){
 this.$router.push({path:"/carDesign"})   
@@ -46,9 +58,9 @@ this.$router.push({path:"/carDesign"})
     created(){
 
     },
-    mounted(){
-         console.log(this.$route.query.ID)
-        this.getCarImg(this.$route.query.ID);
+    mounted(){ 
+         console.log(this.$route.query)
+        this.getCarImg(this.$route.query.SerialID);
       
     }
 }

@@ -106,10 +106,10 @@ export default {
            padding-left: 8px;
        }
        li{//每个列表
-            width: 90%;
+            width: 95%;
            height: 62px;
-           margin: 0px 10px;
-           padding: 14px 3px;
+           margin: 0px 8px;
+           padding: 10px 3px;
            p:nth-child(1){
                height: 26px;
                font-size: 15px;

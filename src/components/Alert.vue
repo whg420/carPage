@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2019-12-09 20:12:34
+ * @LastEditTime: 2019-12-12 20:09:15
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \vue11.29\src\components\Alert.vue
+ -->
 <template>
   <div>
       <!-- mask-style="background: rgba(0, 0, 0, 0)" -->
@@ -40,9 +48,9 @@ export default {
  */
       cks(data){
           let pic=data.Picture
-          let ID=data.SerialID
+          let SerialID=data.SerialID
           let MasterID=this.MasterID
-         this.$router.push({path:"/detaile",query:{ID,MasterID}})     
+         this.$router.push({path:"/detaile",query:{SerialID,MasterID}})     
       }
 
   },
