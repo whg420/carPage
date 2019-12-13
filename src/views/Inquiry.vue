@@ -3,18 +3,18 @@
     <Poptip :title="title" :content="content" placement="bottom-end">
       <p class="hint">可向多个商家咨询最低价，商家及时回复@</p>
     </Poptip>
-    <!-- <ul class="iqx" v-if="titleList">
+    <ul class="iqx">
       <li>
-        <img :src="titleList.serial.Picture" alt />
+        <img :src="pic" alt />
       </li>
       <li>
-        <p>{{titleList.serial.AliasName}}</p>
-        <p>{{titleList.car_name}}款</p>
+        <p>{{carList.AliasName}}</p>
+        <p>{{carList.list[count].market_attribute.year}}款{{carList.list[count].car_name}}</p>
       </li>
       <li>
         <b>></b>
       </li>
-    </ul> -->
+    </ul>
     <p class="title">个人信息</p>
     <ul class="personageList">
       <li>
@@ -31,11 +31,12 @@
       </li>
       <button>询问最低价</button>
     </ul>
+
     <p class="title">选择报价经销商</p>
-    <!-- <ul v-for="(item,index) in list" :key="index">
+    <ul v-for="(item,index) in list" :key="index">
       <Check :item="item" :single="single" />
-    </ul> -->
-    {{InquiryList}}
+    </ul>
+    <!-- <Check :list="list" :single="single"/> -->
   </div>
 </template>
 
@@ -43,6 +44,7 @@
 import axios from "axios";
 import Check from "../components/Inquiry/check.vue";
 import { mapState, mapActions, mapMutations } from "vuex";
+
 export default {
   data() {
     return {
@@ -50,10 +52,9 @@ export default {
       count: this.$route.query.index,
       MasterID: this.$route.query.MasterID,
       list: [],
-      titleList:[],
       single: false,
-      content:"私人信息严格保密，最新报价立等可取",
-      title:"安全    安心省力    贴心服务"
+      content: "私人信息严格保密，最新报价立等可取",
+      title: "安全    安心省力    贴心服务"
     };
   },
   components: {
@@ -61,12 +62,14 @@ export default {
   },
   computed: {
     ...mapState({
+      carList: store => store.details.carList,
       datlist: store => store.details.datlist,
       InquiryList: store => store.Inquiry.InquiryList
     })
   },
   methods: {
     ...mapActions({
+      getCarList: "details/getCarList",
       InquiryActionList: "Inquiry/InquiryActionList"
     }),
     fromAddress() {
@@ -74,28 +77,43 @@ export default {
     }
   },
   created() {
-      console.log(this.datlist[this.count].car_id,'----------------------------carId');
-      console.log(this.count,'----------------------------count');
+    axios
+      .get(
+        `https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html?MasterID=${this.MasterID}`
+      )
+      .then(res => {
+        let data = res.data.data;
+        data.forEach(item => {
+          let pic = item.GroupList.forEach(item => {
+            let ID = this.$route.query.ID;
+            if (item.SerialID == ID) {
+              this.pic = item.Picture;
+            }
+          });
+        });
+      });
+    let ID = this.$route.query.ID;
+    this.getCarList(ID);
     let carId = this.datlist[this.count].car_id;
     let cityId = 2;
+
     this.InquiryActionList(carId, cityId);
 
-    // axios
-    //   .get(
-    //     `https://baojia.chelun.com/v2-dealer-alllist.html?carId=${carId}&cityId=${2}`
-    //   )
-    //   .then(res => {
-    //     // console.log(res.data.data.details, "-------------------------res");
-    //     this.list = res.data.data.list;
-    //     this.titleList=res.data.data.details
-    //   });
+    axios
+      .get(
+        `https://baojia.chelun.com/v2-dealer-alllist.html?carId=${carId}&cityId=${2}`
+      )
+      .then(res => {
+        console.log(res.data.data, "-------------------------res");
+        this.list = res.data.data.list;
+      });
   }
 };
 </script>
 
 <style scoped>
-div{
-    width: 100%;
+div {
+  width: 100%;
 }
 .ivu-poptip {
   width: 100%;
@@ -166,11 +184,11 @@ div {
   height: 100%;
   background: #f4f4f4;
 }
-.title{
-width: 100%;
-height:1.625rem;
+.title {
+  width: 100%;
+  height: 1.625rem;
   background: #eeeeee;
-  font-size:0.78rem;
+  font-size: 0.78rem;
   display: flex;
   align-items: center;
   padding-left: 0.6rem;
@@ -198,7 +216,7 @@ height:1.625rem;
 }
 .personageList > button {
   width: 80%;
-  height:2.5rem;
+  height: 2.5rem;
   background: #3aacff;
   border: none;
   border-radius: 0.3125rem;

@@ -7,64 +7,65 @@
     </ul>
     <p>省市</p>
     <ul v-for="(item,index) in Address" :key="index">
-      <li @click="alertLeft"><span>{{item.CityName}}</span><span>></span></li>
+      <li @click="alertLeft">
+        <span>{{item.CityName}}</span>
+        <span>></span>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import Alert from '../components/Address/Alert'
-  export default {
-    data() {
-      return {
-        defaultAddress:[],
-        Address:[],
-         value1: false
-      }
+import axios from "axios";
+import Alert from "../components/Address/Alert";
+export default {
+  data() {
+    return {
+      defaultAddress: [],
+      Address: [],
+      value1: false
+    };
+  },
+  component: {
+    Alert
+  },
+  created() {
+    axios.get("https://baojia.chelun.com/location-client.html").then(res => {
+      this.defaultAddress = res.data.data;
+    });
+    axios.get("https://baojia.chelun.com/v1-city-alllist.html").then(res => {
+      this.Address = res.data.data;
+    });
+  },
+  methods: {
+    fromDetaile() {
+      this.$router.push({ path: "/inquiry" });
     },
-    component:{
-      Alert
-    },
-    created(){
-       axios.get('https://baojia.chelun.com/location-client.html').then((res)=>{
-                this.defaultAddress=res.data.data
-            })
-        axios.get('https://baojia.chelun.com/v1-city-alllist.html').then((res)=>{
-                this.Address=res.data.data;
-        })
-    },
-    methods: {
-     fromDetaile(){
-         this.$router.push({path:"/inquiry"})   
-      },
-      alertLeft(){
+    alertLeft() {
       // this.value1=true;
       // console.log(this.value1);
-      
-           }
-    },
-   
+    }
   }
+};
 </script>
 
 <style scoped>
-div{
+div {
   width: 100%;
   height: 100%;
 }
-p{
+p {
   width: 100%;
   background: #f4f4f4;
 }
-ul{
+ul {
   width: 100%;
 }
-ul>li{
+ul > li {
   width: 100%;
   height: 40px;
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px #ccc solid;
   padding-left: 10px;

@@ -1,19 +1,20 @@
 <template>
   <div id="app">
- <!-- 视口 -->
-    <router-view/>
+    <!-- 视口 -->
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
-*{
+* {
   margin: 0;
   padding: 0;
   appearance: none;
   list-style: none;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
-html,body{
+html,
+body {
   width: 100%;
   height: 100%;
 }
@@ -22,7 +23,5 @@ html,body{
   height: 100%;
   display: flex;
   flex-direction: column;
-
 }
-
 </style>

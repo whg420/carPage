@@ -8,8 +8,10 @@
  -->
 <template>
   <div>
-    <section class="floor-item"
-      v-for="(item,index) in floorList" :key="index"
+    <section
+      class="floor-item"
+      v-for="(item,index) in floorList"
+      :key="index"
       @click="alertLeft(index)"
     >
       <!-- 左侧列表 -->
@@ -26,21 +28,20 @@
 
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
-import { log } from 'util';
+import { log } from "util";
 export default {
   props: ["floorList"],
   data() {
-    return {
-    };
+    return {};
   },
-computed: {
+  computed: {
     ...mapState({
       value1: state => state.home.value1
     })
   },
   methods: {
     ...mapMutations({
-changeValue1:"home/changeValue1"
+      changeValue1: "home/changeValue1"
     }),
     ...mapActions({
       alertActionsList: "home/alertActionsList"
@@ -52,7 +53,7 @@ changeValue1:"home/changeValue1"
     alertLeft(index) {
       this.alertActionsList(this.floorList[index].MasterID);
       this.MasterID = this.floorList[index].MasterID;
-      this.changeValue1(true)
+      this.changeValue1(true);
     }
   }
 };
