@@ -14,7 +14,7 @@
         <button @click="fromInquiry(counts)">询问底价</button>
       </div>
     </div>
-<!-- 全部type切换 -->
+    <!-- 全部type切换 -->
     <div class="carlist">
       <div class="c-type">
         <span
@@ -24,7 +24,7 @@
           @click="alllist(item,index)"
         >{{item}}</span>
       </div>
-<!-- type切换的样式 -->
+      <!-- type切换的样式 -->
       <div class="conlist" v-for="(item,index) in datalist" :key="index">
         <p class="one">{{item.exhaust_str}}/{{item.max_power_str}}{{item.inhale_type}}</p>
         <ul>
@@ -62,7 +62,7 @@ export default {
   /**
    * @description: type以上全部数据,全部type切换数据，type切换的数据
    * @param {type} carList,nav,datalist
-   * @return: 
+   * @return:
    */
   computed: {
     ...mapState({
@@ -81,15 +81,15 @@ export default {
     /**
      * @description: 点击询问底价按钮，跳转路由
      * @param {type} index
-     * @return: 
+     * @return:
      */
     fromInquiry(index) {
       let ID = this.SerialID;
       let MasterID = this.MasterID;
       this.$router.push({ path: "/inquiry", query: { ID, index, MasterID } });
     },
-    alllist(item,index) {
-        this.count=index
+    alllist(item, index) {
+      this.count = index;
       this.setCurrent(item);
       this.getCarList(this.SerialID);
     },

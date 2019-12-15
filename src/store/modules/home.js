@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2019-12-09 19:57:20
- * @LastEditTime: 2019-12-10 19:49:14
+ * @LastEditTime: 2019-12-12 16:27:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \carPage\src\store\modules\home.js
  */
-import { homeActionsList,alertActionsList } from "../../service/index"
+import { homeActionsList, alertActionsList } from "../../service/index"
 const state = {
   // 页面所有数据 
   homeStateList: [],
@@ -14,14 +14,14 @@ const state = {
   floorList: [],
   // 右侧数据
   floorNav: [],
-  arList:[],
+  arList: [],
   // 控制变量
   value1: false
 
 }
 const mutations = {
-  changeValue1(state, payload){
-    state.value1=payload
+  changeValue1(state, payload) {
+    state.value1 = payload
   },
   // 首页同步方法
   homeMutationsList(state, payload) {
@@ -41,8 +41,8 @@ const mutations = {
     });
   },
   // 弹框同步方法
-  alertMutationsList(state, payload){
-    state.arList=payload
+  alertMutationsList(state, payload) {
+    state.arList = payload
   }
 }
 const actions = {
@@ -53,7 +53,7 @@ const actions = {
     commit("homeMutationsList", res)
   },
   // 请求的弹框数据
-  async alertActionsList({ commit },payload) {
+  async alertActionsList({ commit }, payload) {
     let res = await alertActionsList(payload)
     // commit(同步方法,请求到的数据)
     commit("alertMutationsList", res)

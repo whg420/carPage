@@ -1,13 +1,13 @@
 /*
  * @Author: your name
- * @Date: 2019-12-10 16:24:11
- * @LastEditTime: 2019-12-12 19:00:23
- * @LastEditors: your name
+ * @Date: 2019-12-12 16:44:44
+ * @LastEditTime: 2019-12-12 18:49:02
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \car\carPage\src\service\module\Bscroll.js
+ * @FilePath: \car\carPage\src\service\module\Swiper.js
  */
 import request from '../../utils/request'
-export let betterActionList = (arr) => {
+export let SwiperActionList = (arr) => {
     let SerialID=arr.SerialID;
     let ImageID=arr.ImageID;
     let Page=arr.Page;

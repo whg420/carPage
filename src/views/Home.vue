@@ -1,7 +1,7 @@
 <template>
   <div class="floor">
     <!-- 父传子将flag变量和ID传到弹框组件中 -->
-    <Alert :value1="value1" :arList="arList" :MasterID="MasterID"/>
+    <Alert :value1="value1" :arList="arList" :MasterID="MasterID" />
     <!-- {{floorNavList}} -->
     <section class="floor-nav" id="floorNavList">
       <!-- 右侧列表 -->
@@ -27,7 +27,7 @@
       <div class="floor-item-box">
         <li class="col" v-if="item instanceof Object==false">{{item}}</li>
         <ul v-if="item instanceof Object">
-          <img :src="item.CoverPhoto"  v-if="item.CoverPhoto" />
+          <img :src="item.CoverPhoto" v-if="item.CoverPhoto" />
           <li v-if="item.Name">{{item.Name}}</li>
         </ul>
       </div>
@@ -48,7 +48,7 @@ export default {
     return {
       floorIndex: 1,
       value1: false,
-      MasterID:null
+      MasterID: null
     };
   },
   /**
@@ -58,7 +58,7 @@ export default {
   components: {
     Alert
   },
-   /**
+  /**
    * 注册组件
    * @params Alert 注册组件
    */
@@ -66,7 +66,7 @@ export default {
     /**
      * @description: 全部数据,左侧主要列表页数据,右侧A...数据,弹框数据
      * @param {type} homeStateList,floorList,floorNav,arList
-     * @return: 
+     * @return:
      */
     ...mapState({
       homeStateList: state => state.home.homeStateList,
@@ -78,7 +78,6 @@ export default {
   /**
    * @description: created初始阶段调用渲染
    * @param {type} this.homeActionsList
-   * @return: 
    */
   created() {
     this.homeActionsList();
@@ -86,7 +85,7 @@ export default {
   /**
    * @description: 在methods中调用所用到的vuex异步方法
    * @param {type} homeActionsList，alertActionsList
-   * @return: 
+   * @return:
    */
   methods: {
     ...mapActions({
@@ -99,7 +98,7 @@ export default {
      */
     alertLeft(index) {
       this.alertActionsList(this.floorList[index].MasterID);
-      this.MasterID=this.floorList[index].MasterID
+      this.MasterID = this.floorList[index].MasterID;
       this.value1 = true;
     },
     /**

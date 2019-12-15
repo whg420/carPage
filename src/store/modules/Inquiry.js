@@ -1,23 +1,23 @@
 
-import {InquiryActionList} from '../../service/module/Inquiry'
+import { InquiryActionList } from '../../service/module/Inquiry'
 const state = {
-    InquiryList:[]
+    InquiryList: []
 }
-const mutations={
-    InquiryMutationsList(state,payload){
-       state.InquiryList=payload;
-     }
-}
-const actions={
-    async InquiryActionList ({commit},payload) {
-        let res = await InquiryActionList(payload)
-        console.log(payload,'0-0-0-0-0-0-0-0-0-0-0-0-0-');
-        commit("InquiryMutationsList",res)
+const mutations = {
+    InquiryMutationsList(state, payload) {
+        state.InquiryList = payload;
     }
 }
-export default({
-    namespaced:true,
-      state,
-      mutations,
-      actions,
-    })
+const actions = {
+    async InquiryActionList({ commit }, payload) {
+        let res = await InquiryActionList(payload)
+        console.log(payload, '0-0-0-0-0-0-0-0-0-0-0-0-0-');
+        commit("InquiryMutationsList", res)
+    }
+}
+export default ({
+    namespaced: true,
+    state,
+    mutations,
+    actions,
+})
