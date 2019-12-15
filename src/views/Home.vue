@@ -78,7 +78,6 @@ export default {
   /**
    * @description: created初始阶段调用渲染
    * @param {type} this.homeActionsList
-   * @return:
    */
   created() {
     this.homeActionsList();

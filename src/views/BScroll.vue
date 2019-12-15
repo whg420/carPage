@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-10 15:31:08
- * @LastEditTime: 2019-12-12 21:43:43
+ * @LastEditTime: 2019-12-14 08:40:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \car\carPage\src\views\BScroll.vue
@@ -96,15 +96,10 @@ export default {
         this.pullDownMsg = "下拉刷新，发现更多";
       } else if (pos.y > 40) {
         this.pullDownMsg = "释放更新，发现更多";
-        //   if (JSON.parse(JSON.stringify(this.betterList))==[]) {
-        //   this.arr.Page = 1;
-        //   console.log(this.arr.Page,'-------------------------------------------------------');
-        // }
         this.arr.Page++;
         this.arr.PageSize=30;
         this.betterActionList(this.arr);
       }
-      // console.log("下拉");
     });
     /**
      * @description: 监听滚动结束,监听手指离开
