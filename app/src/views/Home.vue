@@ -126,7 +126,7 @@ export default {
   overflow-y: scroll;
 }
 .col {
-  width: 23.37rem;
+  width: 100%;
   height: 1.3125rem;
   color: #b5b5b5;
   background: #f4f4f4;

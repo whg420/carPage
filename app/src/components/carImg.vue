@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2019-12-13 16:00:02
+ * @LastEditTime: 2019-12-13 16:26:08
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \vue11.29\app\src\components\carImg.vue
+ -->
 <template>
     <div>
          <div class="image_item_list">
@@ -61,7 +69,7 @@ export default {
 .image_ps{
     position: absolute;
     height: 123px;
-    width:123px;
+    width:33.3%;
     top: 0;
     left: 0;
     color: #ffffff;

@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2019-12-13 16:00:02
+ * @LastEditTime: 2019-12-13 16:04:35
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue11.29\app\src\main.js
+ */
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'

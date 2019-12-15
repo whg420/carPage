@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-09 11:54:08
- * @LastEditTime: 2019-12-12 20:51:53
+ * @LastEditTime: 2019-12-13 17:08:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue11.29\src\views\colorDesign.vue
@@ -60,7 +60,9 @@ this.$router.push({path:"/carDesign"})
     },
     mounted(){ 
          console.log(this.$route.query)
-        this.getCarImg(this.$route.query.SerialID);
+         let ColorId=this.$route.query.ColorId
+         let SerialID=this.$route.query.SerialID
+        this.getCarImg(SerialID);
       
     }
 }

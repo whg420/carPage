@@ -12,8 +12,8 @@
         >{{item}}</span>
       </p>
       <ul v-for="(item,index) in lists[count]" :key="index">
-        <li>
-          <span :style="{'background':item.Value}" @click="colorhanle(item.Name,item.ColorId)"></span>
+        <li @click="colorhanle(item.Name,item.ColorId)">
+          <span :style="{'background':item.Value}" ></span>
           {{item.Name}}
         </li>
       </ul>
@@ -22,7 +22,7 @@
 </template>
 <script>
 import Axios from "axios";
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 export default {
   props: {},
   components: {},
@@ -30,7 +30,8 @@ export default {
     return {
       list: [],//颜色
       navlist: [],//年份
-      count: 0//下标
+      count: 0,//下标
+     
     };
   },
   computed: {
@@ -43,6 +44,9 @@ export default {
     ...mapActions({
       getCarColor:"CarColor/getCarColor"
     }),
+    ...mapMutations({
+      setColorID:"carImg/setColorID"//设置颜色ID
+    }),
     fromDesignColor(){
         this.$router.push({path:"colorDesign"})   
     },
@@ -51,9 +55,11 @@ export default {
       console.log(item);
     },
     colorhanle(name,ColorId){
+      let SerialID=this.$route.query.ID
+       this.setColorID(ColorId);//传入颜色ID
         this.$router.push({
           path:"/colorDesign",
-          query:{name,ColorId}})   
+          query:{SerialID}})   
     }
   },
   created() {
