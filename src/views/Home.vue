@@ -1,8 +1,7 @@
-
 <template>
   <div class="floor">
     <!-- 父传子将flag变量和ID传到弹框组件中 -->
-    <Alert :value1="value1" :arList="arList" />
+    <Alert :value1="value1" :arList="arList" :MasterID="MasterID" />
     <!-- {{floorNavList}} -->
     <section class="floor-nav" id="floorNavList">
       <!-- 右侧列表 -->
@@ -13,7 +12,7 @@
           class="nav-list-item"
           v-for="(item, index) in floorNav"
           :key="index"
-          @click="setFloorNavMountClick(index)"
+          @touchstart="setFloorNavMountClick(index)"
         >{{item}}</li>
       </ul>
     </section>
@@ -38,25 +37,18 @@
  
 <script>
 /**
- * axios
- * @params 引入axios
- */
-import axios from "axios";
-/**
- * Alert
- * @params 引入Alert className
+ * Alert vuex
+ * @params 引入Alert  引入mapState, mapMutations, mapGetters, mapActions
  */
 import Alert from "../components/Alert";
-var TIMER = null;
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 export default {
   name: "home",
   data() {
     return {
-      floorNav: [],
-      floorList: [],
       floorIndex: 1,
       value1: false,
-      arList: []
+      MasterID: null
     };
   },
   /**
@@ -67,63 +59,47 @@ export default {
     Alert
   },
   /**
-   * 在初始的时候请求数据
-   * @params axios 请求数据
+   * 注册组件
+   * @params Alert 注册组件
+   */
+  computed: {
+    /**
+     * @description: 全部数据,左侧主要列表页数据,右侧A...数据,弹框数据
+     * @param {type} homeStateList,floorList,floorNav,arList
+     * @return:
+     */
+    ...mapState({
+      homeStateList: state => state.home.homeStateList,
+      floorList: state => state.home.floorList,
+      floorNav: state => state.home.floorNav,
+      arList: state => state.home.arList
+    })
+  },
+  /**
+   * @description: created初始阶段调用渲染
+   * @param {type} this.homeActionsList
    */
   created() {
-    axios
-      .get("https://baojia.chelun.com/v2-car-getMasterBrandList.html")
-      .then(response => {
-        let list = response.data.data;
-        // 将请求的数据赋给左侧列表
-        this.floorList = list;
-        let res = [];
-        list.forEach((item, index) => {
-          let text = item.Spelling.slice(0, 1);
-          res.push(text, item);
-          this.floorList = Array.from(new Set(res));
-          // console.log(this.floorList);
-        });
-        // 定义一个数组，循环这个数据，将它的Spelling的第一位取出来，存入数组，newSet去重
-        let arr = [];
-        list.forEach((item, index) => {
-          let text = item.Spelling;
-          arr.push(text.slice(0, 1));
-          this.floorNav = Array.from(new Set(arr));
-        });
-      })
-      .catch(error => {
-        // handle error
-        console.log(error);
-      })
-      .then(() => {
-        // always executed
-      });
+    this.homeActionsList();
   },
+  /**
+   * @description: 在methods中调用所用到的vuex异步方法
+   * @param {type} homeActionsList，alertActionsList
+   * @return:
+   */
   methods: {
+    ...mapActions({
+      homeActionsList: "home/homeActionsList",
+      alertActionsList: "home/alertActionsList"
+    }),
     /**
-     * 点击弹出
-     * @params flag 控制flag变量
+     * @description: alertLeft点击弹出事件，传入对应的index下标和传入MasterID
+     * @param {type} index，this.floorList[index].MasterID
      */
     alertLeft(index) {
+      this.alertActionsList(this.floorList[index].MasterID);
+      this.MasterID = this.floorList[index].MasterID;
       this.value1 = true;
-      axios
-        .get(
-          `https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html?MasterID=${this.floorList[index].MasterID}`
-        )
-        .then(response => {
-          this.arList = response.data.data;
-          console.log(this.arList);
-
-          // console.log(JSON.parse(JSON.stringify(this.arList)));
-        })
-        .catch(error => {
-          // handle error
-          console.log(error);
-        })
-        .then(() => {
-          // always executed
-        });
     },
     /**
      * 设置楼层导航事件驱动方法
@@ -141,83 +117,76 @@ export default {
         floor_top,
         "-----------------------获取到每一个点击对应的节点的offsetTop"
       );
-      document.querySelector('.floor').scrollTop=floor_top
-       window.onscroll = () =>{
-      let top = document.querySelector('.floor').scrollTop;
-          top = floor_top 
-      }
-      //检测是否有滚动条
-if(document.body.style.overflow!="hidden"&&document.body.scroll!="no"&&document.body.scrollHeight>document.body.offsetHeight)
-{
-console.log('有滚动条')
-}else
-{
-console.log('无滚动条')
-}
+      document.querySelector(".floor").scrollTop = floor_top;
+      //监听
+      window.onscroll = () => {
+        let top = document.querySelector(".floor").scrollTop;
+        top = floor_top;
+      };
     }
-}
-}
+  }
+};
 </script>
 <style scoped>
-  .floor{
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll
-  }
-.col {
-  width: 375px;
-  color: #000;
-  background: #f4f4f4;
-  margin-left: -10px;
-  border-bottom: none;
-}
-.setaxios {
+.floor {
   width: 100%;
-  margin: 20px auto;
-  text-align: right;
+  height: 100%;
+  overflow-y: scroll;
 }
-.setaxios input[type="button"] {
-  text-align: center;
+.col {
+  width: 100%;
+  height: 1.3125rem;
+  color: #b5b5b5;
+  background: #f4f4f4;
+  border-bottom: none;
+  font-size: 0.9375rem;
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
 }
 .floor-nav {
   position: fixed;
-  top: 15%;
-  right: 0;
+  top: 8.875rem;
+  right: 0.5rem;
 }
 .floor-nav .nav-list {
-  width: 50px;
   display: inline-block;
   text-align: center;
-  /* background-color: #f8f8f8; */
 }
 .floor-nav .nav-list .nav-list-item {
-  display: inline-block;
-  width: 100%;
-  border-bottom: 1px solid #fff;
   cursor: pointer;
-  /* font-size: 25px; */
+  font-size: 0.75rem;
+  margin-bottom: 0.4rem;
 }
 .floor-nav .nav-list .nav-list-item.active,
 .floor-nav .nav-list .nav-list-item:hover {
   background-color: #404040;
 }
-.floor-item-box > ul {
+.floor-item-box {
   width: 100%;
+}
+.floor-item-box > ul {
+  width: 92%;
+  height: 3.1875rem;
   display: flex;
+  align-items: center;
+  margin: 0 auto;
+  border-bottom: 0.0625rem #ccc solid;
 }
 .floor-item-box > ul > img {
-  width: 40px;
-  height: 40px;
+  width: 2.5625rem;
+  height: 2.5625rem;
 }
 .floor-item-box > ul > li {
   color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-left: 1.25rem;
+  font-size: 1.03125rem;
 }
 .floor-item {
-  width: 95%;
-  border-bottom: 1px #ccc solid;
+  width: 100%;
   margin: 0 auto;
   color: #fff;
   display: flex;

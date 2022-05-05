@@ -1,0 +1,79 @@
+<!--
+ * @Author: your name
+ * @Date: 2019-12-09 19:57:20
+ * @LastEditTime: 2019-12-12 10:46:10
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \car\carPage\src\components\carImg.vue
+ -->
+<template>
+  <div>
+    <div class="image_item_list">
+      <div class="image_ps" @click="fromBscroll">
+        <p class="image_ps_wan">{{item.Name}}</p>
+        <p>{{item.Count}}张</p>
+      </div>
+      <li v-for="(itemimg,key) in item.List" :key="key">
+        <!-- <img :src="item.Url" alt=""> -->
+        <span src :style="{backgroundImage:'url('+itemimg.Url+')'}" @touchend="fromSwiper"></span>
+      </li>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  props: ["item"],
+  components: {},
+  data() {
+    return {};
+  },
+  computed: {},
+  methods: {
+    fromBscroll() {
+      this.$router.push({ path: "/bscroll" });
+    },
+    fromSwiper() {
+      this.$router.push({ path: "/swiper" });
+    }
+  },
+  created() {},
+  mounted() {}
+};
+</script>
+
+<style lang="scss" scoped>
+.image_item_list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  li {
+    width: 33.3%;
+    height: 123px;
+    padding: 2px 2px;
+    span {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}
+.image_ps {
+  position: absolute;
+  height: 123px;
+  width: 123px;
+  top: 0;
+  left: 0;
+  color: #ffffff;
+  background: rgba(56, 90, 130, 0.5);
+  font-size: 13px;
+  text-align: center;
+  .image_ps_wan {
+    margin-top: 45px;
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+}
+</style>
